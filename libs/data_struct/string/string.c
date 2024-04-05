@@ -12,4 +12,8 @@ size_t strlen_(char *begin) {
     }
     return end - begin;
 }
-
+//возвращает указатель
+//на первый элемент с кодом ch,
+char* find(char *begin, char *end, int ch){
+    return NULL;
+}
