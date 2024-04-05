@@ -6,7 +6,10 @@
 
 //подсчёт длины строки
 size_t strlen_(char *begin) {
-
-    return 0;
+    char *end = begin;
+    while (*end != '\0') {
+        end++;
+    }
+    return end - begin;
 }
 
