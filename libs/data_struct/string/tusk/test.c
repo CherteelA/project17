@@ -24,4 +24,5 @@ void test_find(){
 
 void str_test(){
     test_strlen_();
+    test_find();
 }
