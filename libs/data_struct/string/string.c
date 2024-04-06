@@ -78,5 +78,7 @@ bool strcmp_(char *lhs, char *rhs){
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource
 char* copy(const char *beginSource, const char *endSource, char *beginDestination){
-    return NULL;
+    memcpy(beginDestination, beginSource, endSource-beginSource);
+    beginDestination += endSource + 1 - beginSource;
+    return beginDestination;
 }
