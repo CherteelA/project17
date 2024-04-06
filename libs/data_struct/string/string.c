@@ -46,5 +46,11 @@ char* findSpace(char *begin){
 
 //возвращает указатель на первый справа символ, отличный от пробельных
 char* findNonSpaceReverse(char *rbegin, const char *rend){
-    return NULL;
+    while(rbegin != rend){
+        if(!(isspace(*rbegin))){
+            return rbegin;
+        }
+        rbegin--;
+    }
+    return rbegin;
 }
