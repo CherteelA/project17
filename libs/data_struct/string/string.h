@@ -20,4 +20,6 @@ char* findNonSpace(char *begin);
 //возвращает указатель на первый пробельный символ
 char* findSpace(char *begin);
 
+//возвращает указатель на первый справа символ, отличный от пробельных
+char* findNonSpaceReverse(char *rbegin, const char *rend);
 #endif //LABA_STRING_H

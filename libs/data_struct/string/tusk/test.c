@@ -38,9 +38,20 @@ void test_findSpace(){
     char *word_3 = "university";
     assert(word_3+10 == findSpace(word_3));
 }
+
+void test_findNonSpaceReverse(){
+    char *word_1 = " hello";
+    assert(word_1+5 == findNonSpaceReverse(word_1+5,word_1));
+    char *word_2 = "progr\namm\ter\t";
+    assert(word_2+11 == findNonSpaceReverse(word_2+12, word_2));
+    char *word_3 = "university";
+    assert(word_3+9 == findNonSpaceReverse(word_3+9, word_3));
+}
+
 void str_test(){
     test_strlen_();
     test_find();
     test_findNonSpace();
     test_findSpace();
+    test_findNonSpaceReverse();
 }
