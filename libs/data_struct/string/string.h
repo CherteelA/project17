@@ -1,6 +1,7 @@
 //
 // Created by admin on 01.04.2024.
 //
+#include <memory.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -29,4 +30,8 @@ char* findSpaceReverse(char *rbegin, const char *rend);
 
 //сравнение сторк, true если равны
 bool strcmp_(char *lhs, char *rhs);
+
+//записывает по адресу beginDestination
+//фрагмент памяти, начиная с адреса beginSource до endSource
+char* copy(const char *beginSource, const char *endSource, char *beginDestination);
 #endif //LABA_STRING_H

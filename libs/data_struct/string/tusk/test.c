@@ -66,7 +66,13 @@ void test_strcmp_(){
     assert(!strcmp_(word_3, word_4));
 }
 
-void str_test(){
+void test_copy(){
+    char *word_1 = "hello";
+    char *beginDestination = malloc(10);
+    assert(beginDestination+5 == copy(word_1, word_1+4, beginDestination));
+}
+
+void str_test() {
     test_strlen_();
     test_find();
     test_findNonSpace();
@@ -74,4 +80,5 @@ void str_test(){
     test_findNonSpaceReverse();
     test_findSpaceReverse();
     test_strcmp_();
+    test_copy();
 }
