@@ -32,3 +32,8 @@ char* findNonSpace(char *begin){
     }
     return ++begin;
 }
+
+//возвращает указатель на первый пробельный символ
+char* findSpace(char *begin){
+    return NULL;
+}

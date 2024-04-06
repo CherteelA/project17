@@ -30,8 +30,17 @@ void test_findNonSpace(){
     assert(word_3+1 == findNonSpace(word_3));
 }
 
+void test_findSpace(){
+    char *word_1 = " hello";
+    assert(word_1 == findSpace(word_1));
+    char *word_2 = "progr\nammer";
+    assert(word_2+5 == findSpace(word_2));
+    char *word_3 = "university";
+    assert(word_3+10 == findSpace(word_3));
+}
 void str_test(){
     test_strlen_();
     test_find();
     test_findNonSpace();
+    test_findSpace();
 }
