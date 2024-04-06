@@ -73,4 +73,5 @@ void str_test(){
     test_findSpace();
     test_findNonSpaceReverse();
     test_findSpaceReverse();
+    test_strcmp_();
 }

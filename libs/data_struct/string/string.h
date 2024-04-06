@@ -28,5 +28,5 @@ char* findNonSpaceReverse(char *rbegin, const char *rend);
 char* findSpaceReverse(char *rbegin, const char *rend);
 
 //сравнение сторк, true если равны
-bool strcmp_(char *lhs, char *rhs)
+bool strcmp_(char *lhs, char *rhs);
 #endif //LABA_STRING_H
