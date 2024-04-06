@@ -24,5 +24,11 @@ char* find(char *begin, char *end, int ch){
 //возвращает указатель на первый
 //символ, отличный от пробельных
 char* findNonSpace(char *begin){
-    return NULL;
+    while (*begin != '\0'){
+        if(!(isspace(*begin))){
+            return begin;
+        }
+        begin++;
+    }
+    return ++begin;
 }
