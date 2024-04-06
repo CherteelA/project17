@@ -65,3 +65,8 @@ char* findSpaceReverse(char *rbegin, const char *rend){
     }
     return rbegin;
 }
+
+//сравнение сторк, true если равны
+bool strcmp_(char *lhs, char *rhs){
+    return NULL;
+}

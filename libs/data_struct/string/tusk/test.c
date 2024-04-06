@@ -57,6 +57,15 @@ void test_findSpaceReverse(){
     assert(word_3 == findSpaceReverse(word_3+9, word_3));
 }
 
+void test_strcmp_(){
+    char *word_1 = " hello";
+    char *word_2 = " hello";
+    assert(strcmp_(word_1, word_2));
+    char *word_3 = "hello";
+    char *word_4 = " hello";
+    assert(!strcmp_(word_3, word_4));
+}
+
 void str_test(){
     test_strlen_();
     test_find();

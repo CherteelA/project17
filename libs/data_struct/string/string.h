@@ -3,6 +3,7 @@
 //
 #include <ctype.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #ifndef LABA_STRING_H
 #define LABA_STRING_H
 
@@ -25,4 +26,7 @@ char* findNonSpaceReverse(char *rbegin, const char *rend);
 
 //возвращает указатель на первый справа пробельный символ
 char* findSpaceReverse(char *rbegin, const char *rend);
+
+//сравнение сторк, true если равны
+bool strcmp_(char *lhs, char *rhs)
 #endif //LABA_STRING_H
