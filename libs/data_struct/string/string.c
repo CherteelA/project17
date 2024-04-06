@@ -30,10 +30,16 @@ char* findNonSpace(char *begin){
         }
         begin++;
     }
-    return ++begin;
+    return begin;
 }
 
 //возвращает указатель на первый пробельный символ
 char* findSpace(char *begin){
-    return NULL;
+    while (*begin != '\0'){
+        if(isspace(*begin)){
+            return begin;
+        }
+        begin++;
+    }
+    return begin;
 }
