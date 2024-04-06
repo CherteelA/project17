@@ -21,8 +21,17 @@ void test_find(){
     char *word_3 = "university";
     assert(word_3+9 == find(word_3,word_3+9, 97));
 }
+void test_findNonSpace(){
+    char *word_1 = " hello";
+    assert(word_1+1 == findNonSpace(word_1));
+    char *word_2 = "progr ammer";
+    assert(word_2 == findNonSpace(word_2));
+    char *word_3 = "\nuniversity";
+    assert(word_3+1 == findNonSpace(word_3));
+}
 
 void str_test(){
     test_strlen_();
     test_find();
+    test_findNonSpace();
 }

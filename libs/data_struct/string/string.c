@@ -20,3 +20,9 @@ char* find(char *begin, char *end, int ch){
         begin++;
     return begin;
 }
+
+//возвращает указатель на первый
+//символ, отличный от пробельных
+char* findNonSpace(char *begin){
+    return NULL;
+}
