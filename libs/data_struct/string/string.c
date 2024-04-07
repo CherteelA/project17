@@ -87,5 +87,12 @@ char* copy(const char *beginSource, const char *endSource, char *beginDestinatio
 //beginDestination элементы из фрагмента памяти начиная с beginSource
 //заканчивая endSource, удовлетворяющие функции-предикату f
 char* copyIf(char *beginSource, const char *endSource, char *beginDestination, bool(*f)(char)){
-    return NULL;
+    while (beginSource <= endSource){
+        if(f(*beginSource)){
+            *beginDestination = *beginSource;
+            beginDestination++;
+        }
+        beginSource++;
+    }
+    return beginDestination;
 }
