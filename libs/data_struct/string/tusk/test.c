@@ -80,7 +80,13 @@ bool funct(char a){
 void test_copyIf(){
     char *word = "beginDestination";
     char *beginDestination = malloc(100);
-    assert(beginDestination + 12 == copyIf(word,word+15,beginDestination,funct));
+    assert(beginDestination + 11 == copyIf(word,word+15,beginDestination,funct));
+    free(beginDestination);
+}
+void test_copyIfReverse(){
+    char *word = "beginDestination";
+    char *beginDestination = malloc(100);
+    assert(beginDestination + 6 == copyIfReverse(word+8,word,beginDestination+1,funct));
     free(beginDestination);
 }
 
@@ -94,4 +100,5 @@ void str_test() {
     test_strcmp_();
     test_copy();
     test_copyIf();
+    test_copyIfReverse();
 }
