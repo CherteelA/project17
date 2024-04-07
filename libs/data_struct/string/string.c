@@ -101,5 +101,12 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, b
 ////beginDestination элементы из фрагмента памяти начиная с rbeginSource
 ////заканчивая rendSource, удовлетворяющие функции-предикату f
 char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, bool(*f)(char)){
-    return NULL;
+    while (rbeginSource > rendSource){
+        if(f(*rbeginSource)){
+            *beginDestination = *rbeginSource;
+            beginDestination++;
+        }
+        rbeginSource--;
+    }
+    return beginDestination;
 }

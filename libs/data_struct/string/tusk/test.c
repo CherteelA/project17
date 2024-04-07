@@ -86,7 +86,7 @@ void test_copyIf(){
 void test_copyIfReverse(){
     char *word = "beginDestination";
     char *beginDestination = malloc(100);
-    assert(beginDestination + 6 == copyIfReverse(word+8,word,beginDestination+1,funct));
+    assert(beginDestination + 5 == copyIfReverse(word+8,word+1,beginDestination,funct));
     free(beginDestination);
 }
 
