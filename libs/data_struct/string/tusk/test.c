@@ -1,7 +1,7 @@
 //
 // Created by admin on 04.04.2024.
 //
-#include "../string.h"
+#include "../string_.h"
 #include <assert.h>
 #include "test.h"
 #include <stdio.h>

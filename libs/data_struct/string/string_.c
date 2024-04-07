@@ -1,7 +1,7 @@
 //
 // Created by admin on 01.04.2024.
 //
-#include "string.h"
+#include "string_.h"
 #include <stdio.h>
 
 //подсчёт длины строки

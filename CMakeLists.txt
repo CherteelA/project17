@@ -9,7 +9,7 @@ add_executable(Project17 main.c
         libs/data_struct/matrix/matrix.h
         libs/data_struct/matrix/matrix.c
         libs/data_struct/ordered_array/ordered_array.c
-        libs/data_struct/string/string.c
+        libs/data_struct/string/string_.c
         libs/data_struct/unordered_array/unordered_array.c
         libs/data_struct/vector/vector.c
         libs/data_struct/vector_void/vectorVoid.h
