@@ -70,6 +70,18 @@ void test_copy(){
     char *word_1 = "hello";
     char *beginDestination = malloc(10);
     assert(beginDestination+5 == copy(word_1, word_1+4, beginDestination));
+    free(beginDestination);
+}
+
+bool funct(char a){
+    return a < 111;
+}
+
+void test_copyIf(){
+    char *word = "beginDestination";
+    char *beginDestination = malloc(100);
+    assert(beginDestination + 12 == copyIf(word,word+15,beginDestination,funct));
+    free(beginDestination);
 }
 
 void str_test() {
@@ -81,4 +93,5 @@ void str_test() {
     test_findSpaceReverse();
     test_strcmp_();
     test_copy();
+    test_copyIf();
 }

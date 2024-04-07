@@ -34,4 +34,9 @@ bool strcmp_(char *lhs, char *rhs);
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource
 char* copy(const char *beginSource, const char *endSource, char *beginDestination);
+
+// записывает по адресу
+//beginDestination элементы из фрагмента памяти начиная с beginSource
+//заканчивая endSource, удовлетворяющие функции-предикату f
+char* copyIf(char *beginSource, const char *endSource, char *beginDestination, bool(*f)(char));
 #endif //LABA_STRING_H
