@@ -4,7 +4,6 @@
 #include "../string_.h"
 #include <assert.h>
 #include "test.h"
-#include <stdio.h>
 
 void test_strlen_(){
     char *word = "hello";
@@ -64,13 +63,21 @@ void test_strcmp_(){
     char *word_3 = "hello";
     char *word_4 = " hello";
     assert(!strcmp_(word_3, word_4));
+    char *word_5 = "\nhello";
+    char *word_6 = "\nhello";
+    assert(strcmp_(word_5, word_6));
 }
 
 void test_copy(){
     char *word_1 = "hello";
-    char *beginDestination = malloc(10);
-    assert(beginDestination+5 == copy(word_1, word_1+4, beginDestination));
-    free(beginDestination);
+    char beginDestination1 [100];
+    assert(beginDestination1+5 == copy(word_1, word_1+4, beginDestination1));
+    char *word_2 = "beginDestination1";
+    char beginDestination2 [100];
+    assert(beginDestination2+5 == copy(word_2, word_2+4, beginDestination2));
+    char *word_3 = "beginDestination1";
+    char beginDestination3[100];
+    assert(beginDestination3+9 == copy(word_3, word_3+8, beginDestination3));
 }
 
 bool funct(char a){
@@ -78,16 +85,27 @@ bool funct(char a){
 }
 
 void test_copyIf(){
-    char *word = "beginDestination";
-    char *beginDestination = malloc(100);
-    assert(beginDestination + 11 == copyIf(word,word+15,beginDestination,funct));
-    free(beginDestination);
+    char *word1 = "beginDestination";
+    char beginDestination1[100];
+    assert(beginDestination1 + 11 == copyIf(word1,word1+15,beginDestination1,funct));
+    char *word2 = "beginDestination";
+    char beginDestination2[100];
+    assert(beginDestination2 + 11 == copyIf(word2,word2+14,beginDestination2,funct));
+    char *word3 = "aaaaa";
+    char beginDestination3[100];
+    assert(beginDestination3 + 5 == copyIf(word3,word3+5,beginDestination3,funct));
 }
 void test_copyIfReverse(){
-    char *word = "beginDestination";
-    char *beginDestination = malloc(100);
-    assert(beginDestination + 5 == copyIfReverse(word+8,word+1,beginDestination,funct));
-    free(beginDestination);
+    char *word1 = "beginDestination";
+    char beginDestination1[100];
+    assert(beginDestination1 + 5 == copyIfReverse(word1+8,word1+1,beginDestination1,funct));
+    char *word2 = "begin";
+    char beginDestination2[100];
+    assert(beginDestination2 + 4 == copyIfReverse(word2+4,word2,beginDestination2,funct));
+    char *word3 = "Destination";
+    char beginDestination3[100];
+    assert(beginDestination3+1 == copyIfReverse(word3+6,word3+5,beginDestination3,funct));
+
 }
 
 void str_test() {

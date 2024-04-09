@@ -62,7 +62,7 @@ ordered_array_set ordered_array_set_difference (ordered_array_set set1, ordered_
 ordered_array_set ordered_array_set_symmetricDifference (ordered_array_set set1, ordered_array_set set2);
 
 // возвращает дополнение до универсума universumSet множества set
-ordered_array_set ordered_array_set_complement (ordered_array_set set, ordered_array_set universumSet);
+ordered_array_set ordered_array_set_complement (ordered_array_set set);
 
 // проверяет, является ли множество set1 включенным в множество set2.
 bool ordered_array_set_isInclusion(ordered_array_set const set1, ordered_array_set const set2);
