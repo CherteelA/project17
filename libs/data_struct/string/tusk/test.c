@@ -80,8 +80,8 @@ void test_copy(){
     assert(beginDestination3+9 == copy(word_3, word_3+8, beginDestination3));
 }
 
-bool funct(char a){
-    return a < 111;
+bool funct(char *a){
+    return *a < 111;
 }
 
 void test_copyIf(){

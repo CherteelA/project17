@@ -86,9 +86,9 @@ char* copy(const char *beginSource, const char *endSource, char *beginDestinatio
 // записывает по адресу
 //beginDestination элементы из фрагмента памяти начиная с beginSource
 //заканчивая endSource, удовлетворяющие функции-предикату f
-char* copyIf(char *beginSource, const char *endSource, char *beginDestination, bool(*f)(char)){
+char* copyIf(char *beginSource, const char *endSource, char *beginDestination, bool(*f)(char*)){
     while (beginSource < endSource){
-        if(f(*beginSource)){
+        if(f(beginSource)){
             *beginDestination = *beginSource;
             beginDestination++;
         }
@@ -100,9 +100,9 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, b
 //// записывает по адресу
 ////beginDestination элементы из фрагмента памяти начиная с rbeginSource
 ////заканчивая rendSource, удовлетворяющие функции-предикату f
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, bool(*f)(char)){
+char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, bool(*f)(char*)){
     while (rbeginSource > rendSource){
-        if(f(*rbeginSource)){
+        if(f(rbeginSource)){
             *beginDestination = *rbeginSource;
             beginDestination++;
         }

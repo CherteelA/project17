@@ -7,5 +7,10 @@
 //убирает пробелы
 void removeNonLetters(char *s);
 
+//Преобразовать строку, оставляя только один символ в каждой последовательности подряд идущих одинаковых символов
+void removeAdjacentEqualLetters(char *s);
 
+//Сократить количество пробелов между словами данного предложения до
+//одного (void removeExtraSpaces(char *s))
+void removeExtraSpaces(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

@@ -4,7 +4,7 @@
 #include "libs/data_struct/string/tusk/test_processing_string.h"
 
 int main() {
-    //str_test();
+    str_test();
     test_lab18();
     return 0;
 }
