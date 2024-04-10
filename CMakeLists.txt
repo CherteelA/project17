@@ -14,4 +14,9 @@ add_executable(Project17 main.c
         libs/data_struct/vector/vector.c
         libs/data_struct/vector_void/vectorVoid.h
         libs/data_struct/vector_void/vectorVoid.c
-        libs/data_struct/string/tusk/test.c)
+        libs/data_struct/string/tusk/test.c
+        libs/data_struct/string/tusk/test_processing_string.c
+        libs/data_struct/string/tusk/test_processing_string.h
+        libs/data_struct/string/processing_string.h
+        libs/data_struct/string/processing_string.c
+)
