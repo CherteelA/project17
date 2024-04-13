@@ -110,6 +110,13 @@ void test_LettersToStart_second(){
     ASSERT_STRING("olleh18 cxz987654321 749658", s);
 }
 
+void test_getWordReverse(){
+    WordDescriptor word;
+    char s[] = "123 222 8585";
+    getWordReverse(s,s + strlen_(s)-1, &word);
+    ASSERT_STRING("8585", word.begin);
+}
+
 
 
 void test_lab18(){
@@ -130,4 +137,5 @@ void test_lab18(){
     test_digitToStart_third();
     test_LettersToStart_first();
     test_LettersToStart_second();
+    test_getWordReverse();
 }

@@ -22,6 +22,9 @@ void removeExtraSpaces(char *s);
 // выражаем слово из строки
 int getWord(char *beginSearch, WordDescriptor *word);
 
+// выражаем слово из строки начиная с конца
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+
 //цифры записывает в начало слова в обратном порядке,
 //а буквы в конец слова без изменения порядка
 void changeWords_numb(char *s);
@@ -29,4 +32,7 @@ void changeWords_numb(char *s);
 //буквы записывает в начало слова в обратном порядке,
 //а цифры в конец слова без изменения порядка
 void changeWords_Letters(char *s);
+
+//количество цифр = количиству пробелов
+void doSpace(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

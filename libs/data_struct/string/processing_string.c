@@ -60,6 +60,17 @@ int getWord(char *beginSearch, WordDescriptor *word){
     word->end = findSpace(word->begin);
     return 1;
 }
+
+// выражаем слово из строки начиная с конца
+bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
+    word->end = findNonSpaceReverse(rend, rbegin);
+    if (*word->end == '\0')
+        return false;
+    word->begin = findSpaceReverse(word->end, rbegin)+1;
+    return true;
+}
+
+
 bool isNumb(char *s){
     return *s > 47 && *s <58;
 }
@@ -99,6 +110,7 @@ void changeWords_Letters(char *s){
         beginSearch += (word.end + 1 - beginSearch);
     }
 }
+
 
 
 
