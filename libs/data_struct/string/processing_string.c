@@ -111,6 +111,26 @@ void changeWords_Letters(char *s){
     }
 }
 
-
-
+//4.................................................................................................................
+//количество цифр = количиству пробелов
+void doSpace(char *s){
+    char *end__stringBuffer = copy(s, s+ strlen_(s),_stringBuffer) - 1;
+    *end__stringBuffer = '\0';
+    char *begin = s;
+    char *ptr = _stringBuffer;
+    while(*ptr!='\0'){
+        if(*ptr > 47 && *ptr < 58){
+            int space = 0;
+            while(space < (int)*ptr-48){
+                *begin = ' ';
+                begin++;
+                space++;
+            }
+        } else{
+            *begin = *ptr;
+            begin++;
+        }
+        ptr++;
+    }
+}
 

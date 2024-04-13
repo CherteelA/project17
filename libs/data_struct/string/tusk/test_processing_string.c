@@ -47,7 +47,7 @@ void test_removeAdjacentEqualLetters_first(){
     ASSERT_STRING("a", words);
 }
 void test_removeAdjacentEqualLetters_second(){
-    char words[] = "aaa bb b";
+    char words[] = "aaa bb bb";
     removeAdjacentEqualLetters(words);
     ASSERT_STRING("a b b", words);
 }
@@ -98,6 +98,12 @@ void test_digitToStart_third(){
     changeWords_numb(s);
     ASSERT_STRING("", s);
 }
+void test_getWordReverse(){
+    WordDescriptor word;
+    char s[] = "123 222 8585";
+    getWordReverse(s,s + strlen_(s)-1, &word);
+    ASSERT_STRING("8585", word.begin);
+}
 //решение задачи №1
 void test_LettersToStart_first(){
     char s[] = "hello81 tF822";
@@ -110,14 +116,22 @@ void test_LettersToStart_second(){
     ASSERT_STRING("olleh18 cxz987654321 749658", s);
 }
 
-void test_getWordReverse(){
-    WordDescriptor word;
-    char s[] = "123 222 8585";
-    getWordReverse(s,s + strlen_(s)-1, &word);
-    ASSERT_STRING("8585", word.begin);
+//4.....................................................................................................................
+void test_doSpace_first(){
+    char s[100] = "he3l1lo5";
+    doSpace(s);
+    ASSERT_STRING("he   l lo     ", s);
 }
-
-
+void test_doSpace_second(){
+    char s[100] = "123";
+    doSpace(s);
+    ASSERT_STRING("      ", s);
+}
+void test_doSpace_third(){
+    char s[100] = "";
+    doSpace(s);
+    ASSERT_STRING("", s);
+}
 
 void test_lab18(){
     test_removeNonLetters_first();
@@ -138,4 +152,7 @@ void test_lab18(){
     test_LettersToStart_first();
     test_LettersToStart_second();
     test_getWordReverse();
+    test_doSpace_first();
+    test_doSpace_second();
+    test_doSpace_third();
 }
