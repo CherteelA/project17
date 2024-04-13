@@ -133,6 +133,50 @@ void test_doSpace_third(){
     ASSERT_STRING("", s);
 }
 
+//5.....................................................................................................................
+void test_replace_first(){
+    char s[] = "hhhhh hhhhhf hhh";
+    char s1[] = "hhhhh";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhhhhf hhh", s);
+}
+void test_replace_second(){
+    char s[] = "hhhhh hhhhh hhhhh hhhhh";
+    char s1[] = "hhhhh";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhh hhh hhh", s);
+}
+void test_replace_third(){
+    char s[] = "adfg adfg adfg adfg ,adfg";
+    char s1[] = "adfg";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhh hhh hhh ,adfg", s);
+}
+void test_replace_fourth(){
+    char s[] = ",adfg ,adfg ,adfg ,adfg ,adfg";
+    char s1[] = "adfg";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING(",adfg ,adfg ,adfg ,adfg ,adfg", s);
+}
+void test_replace_fifth(){
+    char s[] = "hh hh hha";
+    char s1[] = "hh";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhh hha", s);
+}
+void test_replace_sixth(){
+    char s[] = "hh hh h";
+    char s1[] = "hh";
+    char s2[] = "hhh";
+    replace(s, s1, s2);
+    ASSERT_STRING("hhh hhh h", s);
+}
+
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -155,4 +199,10 @@ void test_lab18(){
     test_doSpace_first();
     test_doSpace_second();
     test_doSpace_third();
+    test_replace_first();
+    test_replace_second();
+    test_replace_third();
+    test_replace_fourth();
+    test_replace_fifth();
+    test_replace_sixth();
 }

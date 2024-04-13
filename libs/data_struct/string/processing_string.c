@@ -10,7 +10,7 @@
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
 
-//убирает пробелы
+//получает конец на \0
 char *getEndOfString(char *s){
     while(*s != '\0'){
         s++;
@@ -21,7 +21,7 @@ char *getEndOfString(char *s){
 bool isspase_(char *s){
     return 0 == isspace(*s);
 }
-
+//убирает пробелы
 void removeNonLetters(char *s){
     char *endSource = getEndOfString(s);
     char *destination = copyIf(s, endSource, s, isspase_);
@@ -131,6 +131,69 @@ void doSpace(char *s){
             begin++;
         }
         ptr++;
+    }
+}
+
+//заменя всех слов w1 на w2
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+    char *end__stringBuffer = copy(source, source+ strlen_(source), _stringBuffer);
+    *(end__stringBuffer-1) = '\0';
+    char *readPtr, *recPtr;
+    char *begin = source;
+    if (w1Size >= w2Size) {
+        readPtr = _stringBuffer;
+        recPtr = _stringBuffer;
+        while(*readPtr != '\0'){
+            WordDescriptor word;
+            getWord(readPtr, &word);
+            char temp_word[MAX_STRING_SIZE];
+            char *tempbegin = temp_word;
+            char *endtempword = copy(word.begin, word.end, tempbegin);
+            *(endtempword-1) = '\0';
+            if (strcmp_(temp_word, w1)) {
+                copy(w2, word2.end, begin);
+                begin += w2Size;
+                *begin = ' ';
+                begin++;
+                readPtr += w1Size + 1;
+            } else {
+                copy(word.begin, word.end, begin);
+                begin += word.end - word.begin;
+                *begin = ' ';
+                begin++;
+                readPtr += word.end+1 - word.begin;
+            }
+        }
+        *(begin-1) = '\0';
+    } else {
+        readPtr = _stringBuffer;
+        recPtr = _stringBuffer;
+        while(*readPtr != '\0'){
+            WordDescriptor word;
+            getWord(readPtr, &word);
+            char temp_word[MAX_STRING_SIZE];
+            char *tempbegin = temp_word;
+            char *endtempword = copy(word.begin, word.end, tempbegin);
+            *(endtempword-1) = '\0';
+            if (strcmp_(temp_word, w1)) {
+                copy(w2, word2.end, begin);
+                begin += w2Size;
+                *begin = ' ';
+                begin++;
+                readPtr += w1Size + 1;
+            } else {
+                copy(word.begin, word.end, begin);
+                begin += word.end - word.begin;
+                *begin = ' ';
+                begin++;
+                readPtr += word.end - word.begin;
+            }
+        }
+        *(begin-1) = '\0';
     }
 }
 

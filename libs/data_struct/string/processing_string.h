@@ -9,6 +9,9 @@ typedef struct WordDescriptor {
     char *end;
 } WordDescriptor;
 
+//получает конец
+char *getEndOfString(char *s);
+
 //убирает пробелы
 void removeNonLetters(char *s);
 
@@ -35,4 +38,7 @@ void changeWords_Letters(char *s);
 
 //количество цифр = количиству пробелов
 void doSpace(char *s);
+
+//заменя всех слов w1 на w2
+void replace(char *source, char *w1, char *w2);
 #endif //PROJECT17_PROCESSING_STRING_H
