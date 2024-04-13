@@ -4,6 +4,11 @@
 #include "string_.h"
 #include "processing_string.h"
 #include <stdio.h>
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
+
+char _stringBuffer[MAX_STRING_SIZE + 1];
 
 //убирает пробелы
 char *getEndOfString(char *s){
@@ -12,9 +17,11 @@ char *getEndOfString(char *s){
     }
     return s;
 }
+
 bool isspase_(char *s){
     return 0 == isspace(*s);
 }
+
 void removeNonLetters(char *s){
     char *endSource = getEndOfString(s);
     char *destination = copyIf(s, endSource, s, isspase_);
@@ -44,3 +51,6 @@ void removeExtraSpaces(char *s){
     char *destination = copyIf(s+1, endSource, s+1, AdjacentSpaseIsNotEquale);
     *destination = '\0';
 }
+
+
+

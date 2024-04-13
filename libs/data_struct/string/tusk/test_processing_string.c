@@ -82,6 +82,7 @@ void test_removeExtraSpaces_fourth(){
     removeExtraSpaces(words);
     ASSERT_STRING("", words);
 }
+
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -95,4 +96,5 @@ void test_lab18(){
     test_removeExtraSpaces_second();
     test_removeExtraSpaces_third();
     test_removeExtraSpaces_fourth();
+
 }
