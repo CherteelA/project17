@@ -82,6 +82,35 @@ void test_removeExtraSpaces_fourth(){
     removeExtraSpaces(words);
     ASSERT_STRING("", words);
 }
+//3.......................................................................................................................
+void test_digitToStart_first(){
+    char s[] = "hello81 F822";
+    changeWords_numb(s);
+    ASSERT_STRING("18hello 228F", s);
+}
+void test_digitToStart_second(){
+    char s[] = "hello81 zxc123456789 856947";
+    changeWords_numb(s);
+    ASSERT_STRING("18hello 987654321zxc 749658", s);
+}
+void test_digitToStart_third(){
+    char s[] = "";
+    changeWords_numb(s);
+    ASSERT_STRING("", s);
+}
+//решение задачи №1
+void test_LettersToStart_first(){
+    char s[] = "hello81 tF822";
+    changeWords_Letters(s);
+    ASSERT_STRING("olleh81 Ft822", s);
+}
+void test_LettersToStart_second(){
+    char s[] = "18hello 987654321zxc 749658";
+    changeWords_Letters(s);
+    ASSERT_STRING("olleh18 cxz987654321 749658", s);
+}
+
+
 
 void test_lab18(){
     test_removeNonLetters_first();
@@ -96,5 +125,9 @@ void test_lab18(){
     test_removeExtraSpaces_second();
     test_removeExtraSpaces_third();
     test_removeExtraSpaces_fourth();
-
+    test_digitToStart_first();
+    test_digitToStart_second();
+    test_digitToStart_third();
+    test_LettersToStart_first();
+    test_LettersToStart_second();
 }
