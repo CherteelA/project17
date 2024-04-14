@@ -253,8 +253,11 @@ void getBagOfWords(BagOfWords *bag, char *s){
     char *begin = s;
     while (*begin!='\0'){
         getWord(begin, &bag->words[bag->size]);
-        begin+=(bag->words[bag->size].end - bag->words[bag->size].begin)+1;
+        begin +=  (bag->words[bag->size].end - bag->words[bag->size].begin);
         bag->size++;
+        if(*begin == '\0')
+            break;
+        begin++;
     }
 }
 
@@ -355,4 +358,20 @@ void switch_words(char *s1, char *s2, char *ans){
         char *end = copy(word2.begin,s2+len2,end_ans - 1);
         *(end) = '\0';
     }
+}
+
+//меняет порядок слов в строке
+void reverse_string(char *s){
+    char *end_stringBuffer = copy(s, s+ strlen_(s),_stringBuffer);
+    *end_stringBuffer = '\0';
+    getBagOfWords(&_bag, _stringBuffer);
+    char *begin = s;
+    while(_bag.size > 0){
+        copy(_bag.words[_bag.size-1].begin,_bag.words[_bag.size-1].end,begin);
+        begin += _bag.words[_bag.size-1].end - _bag.words[_bag.size-1].begin;
+        *begin = ' ';
+        begin++;
+        _bag.size--;
+    }
+    *(begin-1) = '\0';
 }

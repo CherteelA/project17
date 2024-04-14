@@ -73,4 +73,7 @@ int count_palindrome(char *s);
 // Если в одной из строк число слов больше, чем в другой,
 // то оставшиеся слова этой строки должны быть дописаны в строку-результат
 void switch_words(char *s1, char *s2, char *ans);
+
+//меняет порядок слов в строке
+void reverse_string(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H
