@@ -41,4 +41,11 @@ void doSpace(char *s);
 
 //заменя всех слов w1 на w2
 void replace(char *source, char *w1, char *w2);
+
+//сравнение слов, словов w1 стоит выше чем w2 по алфавиту 0,
+//словов w2 стоит выше чем w1 по алфавиту 1, если слова совпали то 2
+int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
+
+//Определить, упорядочены ли лексикографически слова данного предложения.
+bool OrderedWords(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

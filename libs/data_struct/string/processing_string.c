@@ -197,3 +197,54 @@ void replace(char *source, char *w1, char *w2) {
     }
 }
 
+
+//сравнение слов, словов w1 стоит выше чем w2 по алфавиту 0,
+//словов w2 стоит выше чем w1 по алфавиту 1, если слова совпали то 2
+int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2){
+    char *beginW1 =w1.begin;
+    char *beginW2 =w2.begin;
+    while(*beginW1!='\0' && *beginW2!='\0'){
+        char temp_letter_W1 = *beginW1;
+        char temp_letter_W2 = *beginW2;
+        if(temp_letter_W1>64 && temp_letter_W1 < 91){
+            temp_letter_W1+=32;
+        }
+        if(temp_letter_W2>64 && temp_letter_W2 < 91){
+            temp_letter_W2+=32;
+        }
+        if(temp_letter_W1 < temp_letter_W2)
+            return 0;
+        if(temp_letter_W1 > temp_letter_W2)
+            return 1;
+        beginW1++;
+        beginW2++;
+    }
+    if(strlen_(w1.begin) != strlen_(w2.begin)){
+        return strlen_(w1.begin) > strlen_(w2.begin);
+    }
+    return 2;
+}
+
+//Определить, упорядочены ли лексикографически слова данного предложения.
+bool OrderedWords(char *s){
+    WordDescriptor word1;
+    WordDescriptor word2;
+    char *begin = s;
+
+    while (*begin!='\0'){
+        getWord(begin, &word1);
+        begin+= (word1.end - word1.begin)+1;
+        if(*begin == '\0') {
+            if (areWordsEqual_comparison(word2, word1) == 1)
+                return false;
+            break;
+        }
+        getWord(begin, &word2);
+        if(areWordsEqual_comparison(word1, word2) == 1)
+            return false;
+        begin+= (word2.end - word2.begin)+1;
+        if(*begin == '\0')
+            break;
+    }
+    return true;
+}

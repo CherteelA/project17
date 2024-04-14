@@ -8,6 +8,7 @@
 #include "../processing_string.h"
 
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
+#define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, __FILE__, __FUNCTION__, __LINE__)
 void assertString(const char *expected, char *got,
                   char const *fileName, char const *funcName,
                   int line) {
@@ -19,6 +20,19 @@ void assertString(const char *expected, char *got,
     } else
         fprintf(stderr, "%s - OK\n", funcName);
 }
+
+void assertStringInt(int expected, int got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (expected != got) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%d\"\n", expected);
+        fprintf(stderr, "Got: \"%d\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
+
 //tusk 1.........................................................................................
 void test_removeNonLetters_first(){
     char words[] = "hello, how are you";
@@ -176,7 +190,77 @@ void test_replace_sixth(){
     replace(s, s1, s2);
     ASSERT_STRING("hhh hhh h", s);
 }
+//6.......................................................................................................................
+void test_areWordsEqual_first(){
+    char s1[] = "abc";
+    char s2[] = "abcg";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(0, areWordsEqual_comparison(w1, w2));
+}
+void test_areWordsEqual_second(){
+    char s1[] = "abc";
+    char s2[] = "abc";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(2, areWordsEqual_comparison(w1, w2));
+}
+void test_areWordsEqual_third(){
+    char s1[] = "bcd";
+    char s2[] = "abcd";
+    WordDescriptor w1, w2;
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    ASSERT_STRING_INT(1, areWordsEqual_comparison(w1, w2));
+}
 
+void test_OrderedWords_first(){
+    int ans;
+    char s[100] = "abcdd mdfgh zxc";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(1, ans);
+}
+void test_OrderedWords_second(){
+    int ans;
+    char s[100] = "abcdd mdfgh axc";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+void test_OrderedWords_third(){
+    int ans;
+    char s[100] = "abcdd abcdd abvc aa";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+void test_OrderedWords_fourth(){
+    int ans;
+    char s[100] = "abcdd abcdd abvc abvz aa";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(0, ans);
+}
+void test_OrderedWords_sixth(){
+    int ans;
+    char s[100] = "abcd abcdd abvc abvz";
+    if(OrderedWords(s))
+        ans = 1;
+    else
+        ans = 0;
+    ASSERT_STRING_INT(1, ans);
+}
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -205,4 +289,13 @@ void test_lab18(){
     test_replace_fourth();
     test_replace_fifth();
     test_replace_sixth();
+    test_areWordsEqual_first();
+    test_areWordsEqual_second();
+    test_areWordsEqual_third();
+    test_OrderedWords_first();
+    test_OrderedWords_second();
+    test_OrderedWords_third();
+    test_OrderedWords_fourth();
+    test_OrderedWords_sixth();
+
 }
