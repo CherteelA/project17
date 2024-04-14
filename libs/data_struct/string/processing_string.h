@@ -67,5 +67,10 @@ void getBagOfWords(BagOfWords *bag, char *s);
 void print_string_revers(char *s);
 
 //возвращает количиство слов
-int count_words(char *s);
+int count_palindrome(char *s);
+
+//Получить строку, в которой чередуются слова первой и второй строки.
+// Если в одной из строк число слов больше, чем в другой,
+// то оставшиеся слова этой строки должны быть дописаны в строку-результат
+void switch_words(char *s1, char *s2, char *ans);
 #endif //PROJECT17_PROCESSING_STRING_H

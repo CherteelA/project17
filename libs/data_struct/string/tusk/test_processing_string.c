@@ -261,6 +261,7 @@ void test_OrderedWords_sixth(){
         ans = 0;
     ASSERT_STRING_INT(1, ans);
 }
+//8...........................................................,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 //работает
 /*
 void test_print_string_revers_first(){
@@ -272,14 +273,38 @@ void test_print_string_revers_second(){
     print_string_revers(s);
 }
 */
-void test_count_words_first(){
+//8...........................................................,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+void test_count_count_palindrome_first(){
     char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Sagas, Peep";
-    ASSERT_STRING_INT(5, count_words(s));
+    ASSERT_STRING_INT(5, count_palindrome(s));
 }
-void test_count_words_second(){
+void test_count_count_palindrome_second(){
     char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Saga, Peep";
-    ASSERT_STRING_INT(4, count_words(s));
+    ASSERT_STRING_INT(4, count_palindrome(s));
 }
+//9...........................................................,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+void test_switch_words_first(){
+    char s1[MAX_STRING_SIZE] = "fff ggg hhh jjj";
+    char s2[MAX_STRING_SIZE] = "kkk lll qqq www";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("fff kkk ggg lll hhh qqq jjj www", ans);
+}
+void test_switch_words_second(){
+    char s1[MAX_STRING_SIZE] = "fff ggg hhh jjj";
+    char s2[MAX_STRING_SIZE] = "kkk lll qqq www mmmmm fffffffafa";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("fff kkk ggg lll hhh qqq jjj www mmmmm fffffffafa", ans);
+}
+void test_switch_words_third(){
+    char s1[MAX_STRING_SIZE] = "fff ggg hhh jjj mmmmm fffffffafa";
+    char s2[MAX_STRING_SIZE] = "kkk lll qqq www";
+    char ans[MAX_STRING_SIZE];
+    switch_words(s1,s2,ans);
+    ASSERT_STRING("fff kkk ggg lll hhh qqq jjj www mmmmm fffffffafa", ans);
+}
+//10`...............................................................................................................`...
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -316,7 +341,10 @@ void test_lab18(){
     test_OrderedWords_third();
     test_OrderedWords_fourth();
     test_OrderedWords_sixth();
-    test_count_words_first();
-    test_count_words_second();
+    test_count_count_palindrome_first();
+    test_count_count_palindrome_second();
+    test_switch_words_first();
+    test_switch_words_second();
+    test_switch_words_third();
 
 }
