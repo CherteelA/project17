@@ -77,7 +77,7 @@ bool isNotNumb(char *s){
     return !(*s > 47 && *s < 58);
 }
 void digitToStart(WordDescriptor word) {
-    char *endStringBuffer = copy(word.begin, word.end+1,_stringBuffer) - 1;
+    char *endStringBuffer = copy(word.begin, word.end+1,_stringBuffer);
     char *recPosition = copyIfReverse(endStringBuffer - 1,_stringBuffer - 1,word.begin, isNumb);
     copyIf(_stringBuffer, endStringBuffer, recPosition, isNotNumb);
 }
@@ -94,7 +94,7 @@ void changeWords_numb(char *s){
 }
 //противоположная для digitToStart, задача первая из 3 номера
 void LettersToStart(WordDescriptor word) {
-    char *endStringBuffer = copy(word.begin, word.end,_stringBuffer) - 1;
+    char *endStringBuffer = copy(word.begin, word.end,_stringBuffer);
     char *recPosition = copyIfReverse(endStringBuffer - 1,_stringBuffer - 1,word.begin, isNotNumb);
     copyIf(_stringBuffer, endStringBuffer, recPosition, isNumb);
 }
@@ -113,7 +113,7 @@ void changeWords_Letters(char *s){
 //4.................................................................................................................
 //количество цифр = количиству пробелов
 void doSpace(char *s){
-    char *end__stringBuffer = copy(s, s+ strlen_(s),_stringBuffer) - 1;
+    char *end__stringBuffer = copy(s, s+ strlen_(s),_stringBuffer);
     *end__stringBuffer = '\0';
     char *begin = s;
     char *ptr = _stringBuffer;
@@ -140,7 +140,7 @@ void replace(char *source, char *w1, char *w2) {
     WordDescriptor word1 = {w1, w1 + w1Size};
     WordDescriptor word2 = {w2, w2 + w2Size};
     char *end__stringBuffer = copy(source, source+ strlen_(source), _stringBuffer);
-    *(end__stringBuffer-1) = '\0';
+    *end__stringBuffer = '\0';
     char *readPtr, *recPtr;
     char *begin = source;
     if (w1Size >= w2Size) {
@@ -152,7 +152,7 @@ void replace(char *source, char *w1, char *w2) {
             char temp_word[MAX_STRING_SIZE];
             char *tempbegin = temp_word;
             char *endtempword = copy(word.begin, word.end, tempbegin);
-            *(endtempword-1) = '\0';
+            *endtempword = '\0';
             if (strcmp_(temp_word, w1)) {
                 copy(w2, word2.end, begin);
                 begin += w2Size;
@@ -177,7 +177,7 @@ void replace(char *source, char *w1, char *w2) {
             char temp_word[MAX_STRING_SIZE];
             char *tempbegin = temp_word;
             char *endtempword = copy(word.begin, word.end, tempbegin);
-            *(endtempword-1) = '\0';
+            *endtempword = '\0';
             if (strcmp_(temp_word, w1)) {
                 copy(w2, word2.end, begin);
                 begin += w2Size;
@@ -269,4 +269,44 @@ void print_string_revers(char *s){
         printf("\n");
         _bag.size--;
     }
+}
+
+//возвращает количиство слов
+int count_words(char *s){
+    char *begin = s;
+    WordDescriptor word;
+    int count = 0;
+    while (*begin != '\0'){
+        bool flag = true;
+        getWord(begin, &word);
+        char *end = copy(word.begin, word.end, _stringBuffer);
+        if(*(end-1) == ','){
+            end -=2;
+            *(end-1) = '\0';
+        } else{
+            *end = '\0';
+            end--;
+        }
+        char *start = _stringBuffer;
+
+        for(int i = 0; i < strlen_(_stringBuffer)/2; i++){
+            if(*start>64 && *start < 91){
+                *start+=32;
+            }
+            if(*end>64 && *end < 91){
+                *end+=32;
+            }
+            if( *start!=*end) {
+                flag = false;
+                break;
+            }
+            start++;
+            end--;
+        }
+        if(flag){
+            count++;
+        }
+        begin+=word.end-word.begin + 1;
+    }
+    return count;
 }

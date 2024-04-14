@@ -65,4 +65,7 @@ void getBagOfWords(BagOfWords *bag, char *s);
 
 //выводит строку с конца
 void print_string_revers(char *s);
+
+//возвращает количиство слов
+int count_words(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

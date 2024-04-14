@@ -71,13 +71,13 @@ void test_strcmp_(){
 void test_copy(){
     char *word_1 = "hello";
     char beginDestination1 [100];
-    assert(beginDestination1+5 == copy(word_1, word_1+4, beginDestination1));
+    assert(beginDestination1+4 == copy(word_1, word_1+4, beginDestination1));
     char *word_2 = "beginDestination1";
     char beginDestination2 [100];
-    assert(beginDestination2+5 == copy(word_2, word_2+4, beginDestination2));
+    assert(beginDestination2+4 == copy(word_2, word_2+4, beginDestination2));
     char *word_3 = "beginDestination1";
     char beginDestination3[100];
-    assert(beginDestination3+9 == copy(word_3, word_3+8, beginDestination3));
+    assert(beginDestination3+8 == copy(word_3, word_3+8, beginDestination3));
 }
 
 bool funct(char *a){

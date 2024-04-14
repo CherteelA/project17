@@ -272,6 +272,14 @@ void test_print_string_revers_second(){
     print_string_revers(s);
 }
 */
+void test_count_words_first(){
+    char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Sagas, Peep";
+    ASSERT_STRING_INT(5, count_words(s));
+}
+void test_count_words_second(){
+    char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Saga, Peep";
+    ASSERT_STRING_INT(4, count_words(s));
+}
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -308,5 +316,7 @@ void test_lab18(){
     test_OrderedWords_third();
     test_OrderedWords_fourth();
     test_OrderedWords_sixth();
+    test_count_words_first();
+    test_count_words_second();
 
 }
