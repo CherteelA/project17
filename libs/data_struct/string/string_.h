@@ -1,12 +1,15 @@
 //
 // Created by admin on 01.04.2024.
 //
+#include <stdio.h>
 #include <memory.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #ifndef LABA_STRING_H
 #define LABA_STRING_H
+
+
 
 //подсчёт длины строки
 size_t strlen_(char *begin);
@@ -29,7 +32,7 @@ char* findNonSpaceReverse(char *rbegin, const char *rend);
 char* findSpaceReverse(char *rbegin, const char *rend);
 
 //сравнение сторк, true если равны
-bool strcmp_(char *lhs, char *rhs);
+bool strcmp_(const char *lhs, const char *rhs);
 
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource

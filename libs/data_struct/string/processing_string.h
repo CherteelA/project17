@@ -1,13 +1,24 @@
 //
 // Created by admin on 10.04.2024.
 //
+#include "string_.h"
 
 #ifndef PROJECT17_PROCESSING_STRING_H
 #define PROJECT17_PROCESSING_STRING_H
+#define MAX_STRING_SIZE 100
+#define MAX_N_WORDS_IN_STRING 100
+#define MAX_WORD_SIZE 20
 typedef struct WordDescriptor {
     char *begin;
     char *end;
 } WordDescriptor;
+
+typedef struct BagOfWords {
+    WordDescriptor words[MAX_N_WORDS_IN_STRING];
+    size_t size;
+} BagOfWords;
+
+
 
 //получает конец
 char *getEndOfString(char *s);
@@ -48,4 +59,10 @@ int areWordsEqual_comparison(WordDescriptor w1, WordDescriptor w2);
 
 //Определить, упорядочены ли лексикографически слова данного предложения.
 bool OrderedWords(char *s);
+
+//получаем алреса начала и конца всех слов
+void getBagOfWords(BagOfWords *bag, char *s);
+
+//выводит строку с конца
+void print_string_revers(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

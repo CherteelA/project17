@@ -1,12 +1,11 @@
 //
 // Created by admin on 10.04.2024.
 //
-#include "string_.h"
+
 #include "processing_string.h"
-#include <stdio.h>
-#define MAX_STRING_SIZE 100
-#define MAX_N_WORDS_IN_STRING 100
-#define MAX_WORD_SIZE 20
+
+BagOfWords _bag;
+BagOfWords _bag2;
 
 char _stringBuffer[MAX_STRING_SIZE + 1];
 
@@ -247,4 +246,27 @@ bool OrderedWords(char *s){
             break;
     }
     return true;
+}
+
+//получаем алреса начала и конца всех слов
+void getBagOfWords(BagOfWords *bag, char *s){
+    char *begin = s;
+    while (*begin!='\0'){
+        getWord(begin, &bag->words[bag->size]);
+        begin+=(bag->words[bag->size].end - bag->words[bag->size].begin)+1;
+        bag->size++;
+    }
+}
+
+//выводит строку с конца
+void print_string_revers(char *s){
+    getBagOfWords(&_bag, s);
+    while(_bag.size>0){
+        while (_bag.words[_bag.size-1].begin != _bag.words[_bag.size-1].end){
+            printf("%c", *_bag.words[_bag.size-1].begin);
+            _bag.words[_bag.size-1].begin++;
+        }
+        printf("\n");
+        _bag.size--;
+    }
 }

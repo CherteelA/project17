@@ -4,8 +4,8 @@
 
 #include "test_processing_string.h"
 #include "../string_.h"
-#include <stdio.h>
 #include "../processing_string.h"
+
 
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
 #define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, __FILE__, __FUNCTION__, __LINE__)
@@ -261,6 +261,17 @@ void test_OrderedWords_sixth(){
         ans = 0;
     ASSERT_STRING_INT(1, ans);
 }
+//работает
+/*
+void test_print_string_revers_first(){
+    char s[MAX_STRING_SIZE] = "aaaa ssss dddd ff ggg hhhh j";
+    print_string_revers(s);
+}
+void test_print_string_revers_second(){
+    char s[MAX_STRING_SIZE] = "";
+    print_string_revers(s);
+}
+*/
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
