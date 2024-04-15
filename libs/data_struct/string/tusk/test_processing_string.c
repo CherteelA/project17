@@ -566,7 +566,38 @@ void test_wordsWhitchNotEqualeWithLast_second(){
     ASSERT_STRING("ff ggg ds fd hhh", wordsWhitchNotEqualeWithLast(s));
 }
 //16.....................................................................................................................
-
+void test_wordBeforeEqualeWords_first(){
+    char *s1 = "ff ggg hh ds fd hhh hh";
+    char *s2 = "ghg hhh hh effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("hhh", ans_str);
+}
+void test_wordBeforeEqualeWords_second(){
+    char *s1 = "ff ggg hh ds fd hhh hh";
+    char *s2 = "ghg hhh ss effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("ghg", ans_str);
+}
+void test_wordBeforeEqualeWords_third(){
+    char *s1 = "ff ggg hh ds fd hfsfs hh";
+    char *s2 = "ghg hhh ss effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("ff", ans_str);
+}
+void test_wordBeforeEqualeWords_fourth(){
+    char *s1 = "ff ggg hh ds fd hfsfs ghg";
+    char *s2 = "ghg hhh ss effff";
+    WordDescriptor ans = wordBeforeEqualeWords(s1,s2);
+    char ans_str[128];
+    wordDescriptorToString(ans,ans_str);
+    ASSERT_STRING("ff", ans_str);
+}
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -642,5 +673,8 @@ void test_lab18(){
     test_reverseString();
     test_wordsWhitchNotEqualeWithLast_first();
     test_wordsWhitchNotEqualeWithLast_second();
-
+    test_wordBeforeEqualeWords_first();
+    test_wordBeforeEqualeWords_second();
+    test_wordBeforeEqualeWords_third();
+    test_wordBeforeEqualeWords_fourth();
 }
