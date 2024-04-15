@@ -98,4 +98,15 @@ bool equaleLettersInwords(WordDescriptor w1, WordDescriptor w2);
 
 //есть ли в данной строке слова состоящие из одинаковых букв
 bool equaleLettersInWordsInstring(char *s);
+
+//равны ли слова
+bool equalewords(WordDescriptor w1, WordDescriptor w2);
+
+//записывает строку с конца
+char *reverseString(char *s);
+
+//Получить строку из слов данной строки, которые отличны от последнего слова
+char *wordsWhitchNotEqualeWithLast(char *s);
+
+
 #endif //PROJECT17_PROCESSING_STRING_H

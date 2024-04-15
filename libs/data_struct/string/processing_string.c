@@ -553,5 +553,56 @@ bool equaleLettersInWordsInstring(char *s){
     return false;
 }
 
+//равны ли слова
+bool equalewords(WordDescriptor w1, WordDescriptor w2){
+    if(w1.end - w1.begin != w2.end - w2.begin)
+        return false;
+    else{
+        char *begin_tempW1 = w1.begin;
+        char *begin_tempW2 = w2.begin;
+        while (begin_tempW1 != w1.end){
+            if(*begin_tempW1 != *begin_tempW2){
+                return false;
+            }
+            begin_tempW1++;
+            begin_tempW2++;
+        }
+    }
+    return true;
+}
 
+//записывает строку с конца
+char *reverseString(char *s){
+    char *end =  s + strlen_(s) - 1;
+    char *ans_begin = _stringBuffer1;
+    while (end!=s){
+        *ans_begin = *end;
+        end--;
+        ans_begin++;
+    }
+    *ans_begin = *s;
+    *(ans_begin+1) = '\0';
+    return _stringBuffer1;
+}
 
+//Получить строку из слов данной строки, которые отличны от последнего слова.
+char *wordsWhitchNotEqualeWithLast(char *s){
+    getBagOfWords(&_bag, s);
+    size_t last_word = _bag.size - 1;
+    char *begin = _stringBuffer1;
+    _bag.size--;
+    char *end;
+    while (_bag.size > 0){
+        if(!equalewords(_bag.words[_bag.size-1], _bag.words[last_word])){
+            end = copy(_bag.words[_bag.size-1].begin, _bag.words[_bag.size-1].end, begin);
+            *end = '\0';
+            begin+=_bag.words[_bag.size-1].end-_bag.words[_bag.size-1].begin;
+            *begin = ' ';
+            begin++;
+        }
+        _bag.size--;
+    }
+    *end = '\0';
+    reverse_string(_stringBuffer1);
+    return _stringBuffer1;
+}
