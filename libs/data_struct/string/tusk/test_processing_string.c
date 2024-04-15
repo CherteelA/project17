@@ -275,7 +275,7 @@ void test_print_string_revers_second(){
 */
 //8...........................................................,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 void test_count_count_palindrome_first(){
-    char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Sagas, Peep";
+    char s[MAX_STRING_SIZE] = "Nun, Level, Deed, Sagas, Peep, h";
     ASSERT_STRING_INT(5, count_palindrome(s));
 }
 void test_count_count_palindrome_second(){
@@ -598,6 +598,17 @@ void test_wordBeforeEqualeWords_fourth(){
     wordDescriptorToString(ans,ans_str);
     ASSERT_STRING("ff", ans_str);
 }
+//17.....................................................................................................................
+void test_DeletePalindrome_frist(){
+    char *s = "fgff ggg hfsh ff ds fd hfsfs ghg";
+    s = DeletePalindrome(s);
+    ASSERT_STRING("fgff hfsh ds fd hfsfs", s);
+}
+void test_DeletePalindrome_second(){
+    char *s = "f fgff ggfg hfsh ffs ds hfsfs ghsg";
+    s = DeletePalindrome(s);
+    ASSERT_STRING("f fgff ggfg hfsh ffs ds hfsfs ghsg", s);
+}
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -677,4 +688,6 @@ void test_lab18(){
     test_wordBeforeEqualeWords_second();
     test_wordBeforeEqualeWords_third();
     test_wordBeforeEqualeWords_fourth();
+    //test_DeletePalindrome_frist();
+    test_DeletePalindrome_second();
 }

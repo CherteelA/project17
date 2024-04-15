@@ -282,32 +282,34 @@ int count_palindrome(char *s){
     while (*begin != '\0'){
         bool flag = true;
         getWord(begin, &word);
-        char *end = copy(word.begin, word.end, _stringBuffer);
-        if(*(end-1) == ','){
-            end -=2;
-            *(end-1) = '\0';
-        } else{
-            *end = '\0';
-            end--;
-        }
-        char *start = _stringBuffer;
+        if(word.end-word.begin>1){
+            char *end = copy(word.begin, word.end, _stringBuffer);
+            if (*(end - 1) == ',') {
+                end -= 2;
+                *(end - 1) = '\0';
+            } else {
+                *end = '\0';
+                end--;
+            }
+            char *start = _stringBuffer;
 
-        for(int i = 0; i < strlen_(_stringBuffer)/2; i++){
-            if(*start>64 && *start < 91){
-                *start+=32;
+            for (int i = 0; i < strlen_(_stringBuffer) / 2; i++) {
+                if (*start > 64 && *start < 91) {
+                    *start += 32;
+                }
+                if (*end > 64 && *end < 91) {
+                    *end += 32;
+                }
+                if (*start != *end) {
+                    flag = false;
+                    break;
+                }
+                start++;
+                end--;
             }
-            if(*end>64 && *end < 91){
-                *end+=32;
+            if (flag) {
+                count++;
             }
-            if( *start!=*end) {
-                flag = false;
-                break;
-            }
-            start++;
-            end--;
-        }
-        if(flag){
-            count++;
         }
         begin+=word.end-word.begin + 1;
     }
@@ -642,4 +644,42 @@ WordDescriptor wordBeforeEqualeWords(char *s1, char *s2){
         begin1 = w1.end;
     }
     return asnFalse;
+}
+
+//удаляет все палиндромы
+char *DeletePalindrome(char *s){
+    char *begin = s;
+    char *beginDest = s;
+    WordDescriptor word;
+    char *end = _stringBuffer;
+    char *begin_str = _stringBuffer;
+    while(*begin != '\0'){
+        getWord(begin, &word);
+        bool flag = true;
+        char *tempEnd = word.end;
+        char *tempBegin = word.begin;
+        int t = (tempEnd-tempBegin);
+        for (int i = 0; i < t / 2; i++) {
+            if (*word.begin > 64 && *word.begin < 91) {
+                *word.begin += 32;
+            }
+            if (*word.end-1 > 64 && *word.end-1 < 91) {
+                *word.end += 32;
+            }
+            if (*word.begin != *(word.end-1)) {
+                flag = false;
+                break;
+            }
+            word.begin++;
+            word.end--;
+        }
+        if (!flag || t == 1) {
+            end = copy(tempBegin,tempEnd,end);
+            *end = ' ';
+            end++;
+        }
+        begin = tempEnd;
+    }
+    *(end-1) = '\0';
+    return _stringBuffer;
 }
