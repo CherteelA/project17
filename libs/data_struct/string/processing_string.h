@@ -119,4 +119,7 @@ void DeletePalindrome(char *s);
 // Требуется дополнить строку, содержащую меньшее количество слов, последними
 //словами строки, в которой содержится большее количество слов.
 void additionString(char *s1, char *s2, int n1, int n2);
+
+//Определить, входит ли в данную строку каждая буква данного слова
+bool allLettersInString(char *s, char *word);
 #endif //PROJECT17_PROCESSING_STRING_H

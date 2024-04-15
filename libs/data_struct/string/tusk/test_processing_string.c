@@ -621,6 +621,39 @@ void test_additionString_second(){
     char s2[MAX_STRING_SIZE] = "fgff ggg hfsh ff";
     additionString(s1,s2,6,4);
     ASSERT_STRING("fgff ggg hfsh ff ds fd", s2);
+}//19............................................................................................................................
+void test_allLettersInString_first(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff as fd";
+    char s2[MAX_STRING_SIZE] = "aghj";
+    int ans;
+    if(allLettersInString(s1,s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_allLettersInString_second(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff s fd";
+    char s2[MAX_STRING_SIZE] = "aghj";
+    int ans;
+    if(allLettersInString(s1,s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_allLettersInString_third(){
+    char s1[MAX_STRING_SIZE] = "fgggfvf ff hjra ff se fd";
+    char s2[MAX_STRING_SIZE] = "avvveerveveevr";
+    int ans;
+    if(allLettersInString(s1,s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
 }
 void test_lab18(){
     test_removeNonLetters_first();
@@ -705,4 +738,7 @@ void test_lab18(){
     test_DeletePalindrome_second();
     test_additionString_first();
     test_additionString_second();
+    test_allLettersInString_first();
+    test_allLettersInString_second();
+    test_allLettersInString_third();
 }

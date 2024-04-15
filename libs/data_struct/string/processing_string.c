@@ -719,3 +719,32 @@ void additionString(char *s1, char *s2, int n1, int n2){
         _bag.size = 0;
     }
 }
+
+//Определить, входит ли в данную строку каждая буква данного слова
+bool allLettersInString(char *s, char *word){
+    char *begin_word = word;
+    char *begin_str = s;
+    bool arr[26];
+    bool arr_peter[26];
+    int len = 0;
+    for(int i = 0; i < 26;i++){
+        arr[i] = false;
+        arr_peter[i] = false;
+    }
+    while (*begin_word != '\0'){
+        arr[*begin_word-97] = true;
+        if(arr_peter[*begin_word-97] == false)
+            len++;
+        arr_peter[*begin_word - 97] = true;
+        begin_word++;
+    }
+    int count = 0;
+    while(*begin_str != '\0'){
+        if(arr[*begin_str - 97] == true && arr_peter[*begin_str - 97] == true){
+            count++;
+            arr_peter[*begin_str - 97] = false;
+        }
+        begin_str++;
+    }
+    return count == len;
+}
