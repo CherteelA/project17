@@ -36,7 +36,7 @@ void removeExtraSpaces(char *s);
 // выражаем слово из строки
 int getWord(char *beginSearch, WordDescriptor *word);
 
-// выражаем слово из строки начиная с конца
+// выражаем слова из строки начиная с конца
 bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 
 //цифры записывает в начало слова в обратном порядке,
@@ -79,4 +79,14 @@ void reverse_string(char *s);
 
 //выводит словов которое стоит перед первым слововом с буквой а
 void printWordBeforeFirstWordWithA(char *s);
+
+//перевод из wordDescriptorToString в char*
+void wordDescriptorToString(WordDescriptor word, char *destination);
+
+//есть ли слово в строке
+bool word_in_string(WordDescriptor w, char *s);
+
+// Определить последнее из слов первой строки, которое есть
+//во второй строке, иначе вернёт первое слово в первой строке
+WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 #endif //PROJECT17_PROCESSING_STRING_H

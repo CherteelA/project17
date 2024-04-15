@@ -60,7 +60,7 @@ int getWord(char *beginSearch, WordDescriptor *word){
     return 1;
 }
 
-// выражаем слово из строки начиная с конца
+// выражаем слова из строки начиная с конца
 bool getWordReverse(char *rbegin, char *rend, WordDescriptor *word){
     word->end = findNonSpaceReverse(rend, rbegin);
     if (*word->end == '\0')
@@ -425,4 +425,49 @@ void printWordBeforeFirstWordWithA(char *s){
     }
     printf("no one word with A");
     printf("\n");
+}
+
+//перевод из wordDescriptorToString в char*
+void wordDescriptorToString(WordDescriptor word, char *destination){
+    char *end = copy(word.begin,word.end,destination);
+    *end = '\0';
+}
+
+//есть ли слово в строке
+bool word_in_string(WordDescriptor w, char *s){
+    char *end = copy(s, s+ strlen_(s), _stringBuffer);
+    *end = '\0';
+    removeExtraSpaces(_stringBuffer);
+    char *begin = _stringBuffer;
+    WordDescriptor word;
+    while (*begin!='\0'){
+        getWord(begin, &word);
+        bool flag = w.end-w.begin == word.end - word.begin;
+        while(word.begin != word.end && w.end-w.begin == word.end - word.begin){
+            if(*word.begin!=*w.begin){
+                flag = false;
+                break;
+            }
+            word.begin++;
+            w.begin++;
+        }
+        if(flag){
+            return true;
+        }
+        begin = word.end;
+    }
+    return false;
+}
+
+// Определить последнее из слов первой строки, которое есть
+//во второй строке, иначе вернёт первое слово в первой строке
+WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2){
+    getBagOfWords(&_bag, s1);
+    while (_bag.size > 0){
+        if(word_in_string(_bag.words[_bag.size-1], s2)){
+            return _bag.words[_bag.size-1];
+        }
+        _bag.size--;
+    }
+    return _bag.words[_bag.size];
 }

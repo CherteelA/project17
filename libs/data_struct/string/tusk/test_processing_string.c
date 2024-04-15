@@ -338,6 +338,79 @@ void test_printWordBeforeFirstWordWithA_fourth(){
     //ответ: word with letter A first, сошлось
 }
 */
+//12.......................................................................................................................
+void test_wordDescriptorToString_first(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char ans[MAX_STRING_SIZE];
+    getWord(s,&word);
+    wordDescriptorToString(word, ans);
+    ASSERT_STRING("hgh", ans);
+}
+void test_wordDescriptorToString_second(){
+    char s[MAX_STRING_SIZE] = "  hgh gg ggg";
+    WordDescriptor word;
+    char ans[MAX_STRING_SIZE];
+    getWord(s,&word);
+    wordDescriptorToString(word, ans);
+    ASSERT_STRING("hgh", ans);
+}
+void test_word_in_string_frist(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char string[MAX_STRING_SIZE] = "vnev eee edjvj hgh veve";
+    int ans;
+    getWord(s,&word);
+    if(word_in_string(word,string)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_word_in_string_second(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char string[MAX_STRING_SIZE] = "vnev eee edjvj egeg hgh";
+    int ans;
+    getWord(s,&word);
+    if(word_in_string(word,string)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_word_in_string_third(){
+    char s[MAX_STRING_SIZE] = "hgh gg ggg";
+    WordDescriptor word;
+    char string[MAX_STRING_SIZE] = "vnev eee edjvj egeg ss";
+    int ans;
+    getWord(s,&word);
+    if(word_in_string(word,string)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_wordFromEndFirstLineWhichStayInSecondLine_first(){
+    char s1[MAX_STRING_SIZE] = "hgh gg ggg";
+    char s2[MAX_STRING_SIZE] = "vnev eee gg egeg ss";
+    WordDescriptor ansW = wordFromEndFirstLineWhichStayInSecondLine(s1,s2);
+    char ans [MAX_STRING_SIZE];
+    wordDescriptorToString(ansW,ans);
+    ASSERT_STRING("gg", ans);
+}
+void test_wordFromEndFirstLineWhichStayInSecondLine_second(){
+    char s1[MAX_STRING_SIZE] = "hgh gg ggg";
+    char s2[MAX_STRING_SIZE] = "vnev eee sgg egeg ss";
+    WordDescriptor ansW = wordFromEndFirstLineWhichStayInSecondLine(s1,s2);
+    char ans [MAX_STRING_SIZE];
+    wordDescriptorToString(ansW,ans);
+    ASSERT_STRING("hgh", ans);
+}
+
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -391,5 +464,11 @@ void test_lab18(){
     test_printWordBeforeFirstWordWithA_third();
     test_printWordBeforeFirstWordWithA_fourth();
      */
-
+    test_wordDescriptorToString_first();
+    test_wordDescriptorToString_second();
+    test_word_in_string_frist();
+    test_word_in_string_second();
+    test_word_in_string_third();
+    test_wordFromEndFirstLineWhichStayInSecondLine_first();
+    test_wordFromEndFirstLineWhichStayInSecondLine_second();
 }
