@@ -410,7 +410,46 @@ void test_wordFromEndFirstLineWhichStayInSecondLine_second(){
     wordDescriptorToString(ansW,ans);
     ASSERT_STRING("hgh", ans);
 }
-
+void test_equaleWordsInstring_frist(){
+    char s2[MAX_STRING_SIZE] = "ss eee sgg egeg ss";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleWordsInstring_second(){
+    char s2[MAX_STRING_SIZE] = "s eee sgg egeg s";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleWordsInstring_third(){
+    char s2[MAX_STRING_SIZE] = "ss eee sgg egeg sg";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_equaleWordsInstring_fourth(){
+    char s2[MAX_STRING_SIZE] = "ss ssg sgg egeg sg";
+    int ans;
+    if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -471,4 +510,8 @@ void test_lab18(){
     test_word_in_string_third();
     test_wordFromEndFirstLineWhichStayInSecondLine_first();
     test_wordFromEndFirstLineWhichStayInSecondLine_second();
+    test_equaleWordsInstring_frist();
+    test_equaleWordsInstring_second();
+    test_equaleWordsInstring_third();
+    test_equaleWordsInstring_fourth();
 }

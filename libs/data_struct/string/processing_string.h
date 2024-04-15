@@ -89,4 +89,7 @@ bool word_in_string(WordDescriptor w, char *s);
 // Определить последнее из слов первой строки, которое есть
 //во второй строке, иначе вернёт первое слово в первой строке
 WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
+
+//есть ли в данной строке одинаковые слова
+bool equaleWordsInstring(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H
