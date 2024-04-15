@@ -113,5 +113,10 @@ char *wordsWhitchNotEqualeWithLast(char *s);
 WordDescriptor wordBeforeEqualeWords(char *s1, char *s2);
 
 //удаляет все палиндромы
-char *DeletePalindrome(char *s);
+void DeletePalindrome(char *s);
+
+//Пусть 𝑛1 – число слов в первой строке, а 𝑛2 – во второй.
+// Требуется дополнить строку, содержащую меньшее количество слов, последними
+//словами строки, в которой содержится большее количество слов.
+void additionString(char *s1, char *s2, int n1, int n2);
 #endif //PROJECT17_PROCESSING_STRING_H

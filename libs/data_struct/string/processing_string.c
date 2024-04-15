@@ -647,7 +647,7 @@ WordDescriptor wordBeforeEqualeWords(char *s1, char *s2){
 }
 
 //удаляет все палиндромы
-char *DeletePalindrome(char *s){
+void DeletePalindrome(char *s){
     char *begin = s;
     char *beginDest = s;
     WordDescriptor word;
@@ -681,5 +681,41 @@ char *DeletePalindrome(char *s){
         begin = tempEnd;
     }
     *(end-1) = '\0';
-    return _stringBuffer;
+    end--;
+    end = copy(begin_str, end, s);
+    *end = '\0';
+}
+
+//Пусть 𝑛1 – число слов в первой строке, а 𝑛2 – во второй.
+// Требуется дополнить строку, содержащую меньшее количество слов, последними
+//словами строки, в которой содержится большее количество слов.
+void additionString(char *s1, char *s2, int n1, int n2){
+    if(n1 < n2){
+        getBagOfWords(&_bag,s2);
+        char *end = getEndOfString(s1);
+        *end = ' ';
+        end++;
+        while(n1 < n2){
+            end = copy(_bag.words[n1].begin, _bag.words[n1].end, end);
+            *end = ' ';
+            end++;
+            n1++;
+        }
+        *(end-1) = '\0';
+        _bag.size = 0;
+    }
+    if(n2 < n1){
+        getBagOfWords(&_bag,s1);
+        char *end = getEndOfString(s2);
+        *end = ' ';
+        end++;
+        while(n2 < n1){
+            end = copy(_bag.words[n2].begin, _bag.words[n2].end, end);
+            *end = ' ';
+            end++;
+            n2++;
+        }
+        *(end-1) = '\0';
+        _bag.size = 0;
+    }
 }

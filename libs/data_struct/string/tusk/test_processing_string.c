@@ -600,14 +600,27 @@ void test_wordBeforeEqualeWords_fourth(){
 }
 //17.....................................................................................................................
 void test_DeletePalindrome_frist(){
-    char *s = "fgff ggg hfsh ff ds fd hfsfs ghg";
-    s = DeletePalindrome(s);
+    char s[MAX_STRING_SIZE] = "fgff ggg hfsh ff ds fd hfsfs ghg";
+    DeletePalindrome(s);
     ASSERT_STRING("fgff hfsh ds fd hfsfs", s);
 }
 void test_DeletePalindrome_second(){
-    char *s = "f fgff ggfg hfsh ffs ds hfsfs ghsg";
-    s = DeletePalindrome(s);
+    char s[MAX_STRING_SIZE] = "f fgff ggfg hfsh ffs ds hfsfs ghsg";
+    DeletePalindrome(s);
     ASSERT_STRING("f fgff ggfg hfsh ffs ds hfsfs ghsg", s);
+}
+//18....................................................................................................................
+void test_additionString_first(){
+    char s1[MAX_STRING_SIZE] = "fgff ggg hfsh ff";
+    char s2[MAX_STRING_SIZE] = "fgggff ff hj ff ds fd";
+    additionString(s1,s2,4,6);
+    ASSERT_STRING("fgff ggg hfsh ff ds fd", s1);
+}
+void test_additionString_second(){
+    char s1[MAX_STRING_SIZE] = "fgggff ff hj ff ds fd";
+    char s2[MAX_STRING_SIZE] = "fgff ggg hfsh ff";
+    additionString(s1,s2,6,4);
+    ASSERT_STRING("fgff ggg hfsh ff ds fd", s2);
 }
 void test_lab18(){
     test_removeNonLetters_first();
@@ -688,6 +701,8 @@ void test_lab18(){
     test_wordBeforeEqualeWords_second();
     test_wordBeforeEqualeWords_third();
     test_wordBeforeEqualeWords_fourth();
-    //test_DeletePalindrome_frist();
+    test_DeletePalindrome_frist();
     test_DeletePalindrome_second();
+    test_additionString_first();
+    test_additionString_second();
 }
