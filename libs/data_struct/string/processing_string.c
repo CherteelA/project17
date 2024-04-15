@@ -364,6 +364,7 @@ void switch_words(char *s1, char *s2, char *ans){
 void reverse_string(char *s){
     char *end_stringBuffer = copy(s, s+ strlen_(s),_stringBuffer);
     *end_stringBuffer = '\0';
+    removeExtraSpaces(_stringBuffer);
     getBagOfWords(&_bag, _stringBuffer);
     char *begin = s;
     while(_bag.size > 0){
@@ -374,4 +375,54 @@ void reverse_string(char *s){
         _bag.size--;
     }
     *(begin-1) = '\0';
+}
+
+//выводит словов которое стоит перед первым слововом с буквой а
+void printWordBeforeFirstWordWithA(char *s){
+    char *begin_lastWord;
+    char *end_lastWord;
+    char *end_stringBuffer = copy(s,s+ strlen_(s), _stringBuffer);
+    *end_stringBuffer = '\0';
+    char *begin = _stringBuffer;
+    WordDescriptor word;
+    if(getWord(begin, &word) == 0) {
+        printf("no one word in string");
+        printf("\n");
+        return;
+    }
+    while (*begin != '\0'){
+        getWord(begin, &word);
+        bool flag = false;
+        char *temp_ptr = word.begin;
+        while (temp_ptr!=word.end){
+            if(*temp_ptr>64 && *temp_ptr < 91){
+                *temp_ptr+=32;
+            }
+            if(*temp_ptr == 97){
+                flag = true;
+                break;
+            }
+            temp_ptr++;
+        }
+        if(flag){
+            if (begin == _stringBuffer) {
+                printf("word with letter A first");
+                printf("\n");
+                return;
+            } else{
+                while(begin_lastWord != end_lastWord){
+                    printf("%c", *begin_lastWord);
+                    begin_lastWord++;
+                }
+                printf("\n");
+                return;
+            }
+        }
+        begin = word.end;
+        flag = false;
+        begin_lastWord = word.begin;
+        end_lastWord = word.end;
+    }
+    printf("no one word with A");
+    printf("\n");
 }

@@ -311,11 +311,33 @@ void test_reverse_string_first(){
     ASSERT_STRING("jjj hhh ggg fff", s);
 }
 void test_reverse_string_second(){
-    char s[MAX_STRING_SIZE] = "a d f g";
+    char s[MAX_STRING_SIZE] = "a d f  g";
     reverse_string(s);
     ASSERT_STRING("g f d a", s);
 }
-
+//11......................................................................................................................
+/*
+void test_printWordBeforeFirstWordWithA_first(){
+    char s[MAX_STRING_SIZE] = "  tttt g skldk aggg";
+    printWordBeforeFirstWordWithA(s);
+    //ответ: skldk, сошлось
+}
+void test_printWordBeforeFirstWordWithA_second(){
+    char s[MAX_STRING_SIZE] = "  tttt g hkldk gggg";
+    printWordBeforeFirstWordWithA(s);
+    //ответ:no one word with A, сошлось
+}
+void test_printWordBeforeFirstWordWithA_third(){
+    char s[MAX_STRING_SIZE] = "   ";
+    printWordBeforeFirstWordWithA(s);
+    //ответ: no one word in string, сошлось
+}
+void test_printWordBeforeFirstWordWithA_fourth(){
+    char s[MAX_STRING_SIZE] = "  attt g akldk gggg";
+    printWordBeforeFirstWordWithA(s);
+    //ответ: word with letter A first, сошлось
+}
+*/
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -352,6 +374,10 @@ void test_lab18(){
     test_OrderedWords_third();
     test_OrderedWords_fourth();
     test_OrderedWords_sixth();
+    /*
+    test_print_string_revers_first();
+    test_print_string_revers_second();
+    */
     test_count_count_palindrome_first();
     test_count_count_palindrome_second();
     test_switch_words_first();
@@ -359,4 +385,11 @@ void test_lab18(){
     test_switch_words_third();
     test_reverse_string_first();
     test_reverse_string_second();
+    /*
+    test_printWordBeforeFirstWordWithA_first();
+    test_printWordBeforeFirstWordWithA_second();
+    test_printWordBeforeFirstWordWithA_third();
+    test_printWordBeforeFirstWordWithA_fourth();
+     */
+
 }

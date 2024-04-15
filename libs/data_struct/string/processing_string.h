@@ -76,4 +76,7 @@ void switch_words(char *s1, char *s2, char *ans);
 
 //меняет порядок слов в строке
 void reverse_string(char *s);
+
+//выводит словов которое стоит перед первым слововом с буквой а
+void printWordBeforeFirstWordWithA(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H
