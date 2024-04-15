@@ -92,4 +92,10 @@ WordDescriptor wordFromEndFirstLineWhichStayInSecondLine(char *s1, char *s2);
 
 //есть ли в данной строке одинаковые слова
 bool equaleWordsInstring(char *s);
+
+//состоят ли слова из одинакового набора букв
+bool equaleLettersInwords(WordDescriptor w1, WordDescriptor w2);
+
+//есть ли в данной строке слова состоящие из одинаковых букв
+bool equaleLettersInWordsInstring(char *s);
 #endif //PROJECT17_PROCESSING_STRING_H

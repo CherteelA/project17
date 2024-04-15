@@ -410,6 +410,7 @@ void test_wordFromEndFirstLineWhichStayInSecondLine_second(){
     wordDescriptorToString(ansW,ans);
     ASSERT_STRING("hgh", ans);
 }
+//13..................................................................................................................
 void test_equaleWordsInstring_frist(){
     char s2[MAX_STRING_SIZE] = "ss eee sgg egeg ss";
     int ans;
@@ -444,6 +445,79 @@ void test_equaleWordsInstring_fourth(){
     char s2[MAX_STRING_SIZE] = "ss ssg sgg egeg sg";
     int ans;
     if(equaleWordsInstring(s2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+//14......................................................................................................................
+void test_equaleLettersInwords_first(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "asdf";
+    char s2[MAX_STRING_SIZE] = "fdsa";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equaleLettersInwords(w1,w2)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleLettersInwords_second(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "dafs";
+    char s2[MAX_STRING_SIZE] = "fdsa";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equaleLettersInwords(w2,w1)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleLettersInwords_third(){
+    WordDescriptor w1,w2;
+    char s1[MAX_STRING_SIZE] = "ddfs";
+    char s2[MAX_STRING_SIZE] = "fdsa";
+    getWord(s1,&w1);
+    getWord(s2,&w2);
+    int ans;
+    if(equaleLettersInwords(w2,w1)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_equaleLettersInWordsInstring_first(){
+    char s[MAX_STRING_SIZE] = "ddfs jeejjej kkkk fdsa dafs";
+    int ans;
+    if(equaleLettersInWordsInstring(s)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(1, ans);
+}
+void test_equaleLettersInWordsInstring_second(){
+    char s[MAX_STRING_SIZE] = "ddfs jeejjej kkkk fdsa drfs";
+    int ans;
+    if(equaleLettersInWordsInstring(s)){
+        ans = 1;
+    } else{
+        ans = 0;
+    }
+    ASSERT_STRING_INT(0, ans);
+}
+void test_equaleLettersInWordsInstring_third(){
+    char s[MAX_STRING_SIZE] = "drfs jeejjej kkkk fdsa drfs";
+    int ans;
+    if(equaleLettersInWordsInstring(s)){
         ans = 1;
     } else{
         ans = 0;
@@ -514,4 +588,10 @@ void test_lab18(){
     test_equaleWordsInstring_second();
     test_equaleWordsInstring_third();
     test_equaleWordsInstring_fourth();
+    test_equaleLettersInwords_first();
+    test_equaleLettersInwords_second();
+    test_equaleLettersInwords_third();
+    test_equaleLettersInWordsInstring_first();
+    test_equaleLettersInWordsInstring_second();
+    test_equaleLettersInWordsInstring_third();
 }

@@ -497,3 +497,61 @@ bool equaleWordsInstring(char *s){
     }
     return false;
 }
+
+//состоят ли слова из одинакового набора букв
+bool equaleLettersInwords(WordDescriptor w1, WordDescriptor w2){
+    if(w1.end - w1.begin != w2.end - w2.begin){
+        return false;
+    } else{
+        char tempW1[MAX_STRING_SIZE];
+        char tempW2[MAX_STRING_SIZE];
+        char *end_tempW1 = copy(w1.begin,w1.end,tempW1);
+        char *end_tempW2 = copy(w2.begin,w2.end,tempW2);
+        *end_tempW1 = '\0';
+        *end_tempW2 = '\0';
+        char *begin_tempW1 = tempW1;
+        while (*begin_tempW1!='\0'){
+            bool flag = true;
+            char *begin_tempW2 = tempW2;
+            while (*begin_tempW2!='\0'){
+                if(*begin_tempW2 == *begin_tempW1){
+                    flag = false;
+                    *begin_tempW2 = ' ';
+                    break;
+                }
+                begin_tempW2++;
+            }
+            if(flag){
+                return false;
+            }
+            begin_tempW1++;
+        }
+    }
+    return true;
+}
+
+
+
+//есть ли в данной строке слова состоящие из одинаковых букв
+bool equaleLettersInWordsInstring(char *s){
+    getBagOfWords(&_bag, s);
+    while (_bag.size > 0){
+        size_t size = _bag.size;
+        int count = 0;
+        while (size > 0){
+            if(equaleLettersInwords(_bag.words[_bag.size-1],_bag.words[size-1])){
+                count++;
+                if(count>1){
+                    _bag.size = 0;
+                    return true;
+                }
+            }
+            size--;
+        }
+        _bag.size--;
+    }
+    return false;
+}
+
+
+
