@@ -32,7 +32,6 @@ void toColFromRow(FILE *file){
         result[size_res] = '\n';
         size_res++;
     }
-    char *begin = result;
     FILE *Fresult = fopen("res.txt","w");
     fputs(tempNumb, Fresult);
     fputs(result, Fresult);
@@ -97,7 +96,36 @@ void test2_tusk1(){
     remove("res.txt");
     remove("my_file.txt");
 }
+void test3_tusk1(){
+    char s[1000] = "2\n951632874\n951632874";
+    FILE *f = fopen("my_file.txt", "w");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    fputs(s,f);
+    fclose(f);
+    FILE *file= fopen("my_file.txt", "r");
+    toColFromRow(f);
+    fclose(file);
+    file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[1000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("2\n99\n55\n11\n66\n33\n22\n88\n77\n44\n",res);
+
+}
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
+    test3_tusk1();
 }
