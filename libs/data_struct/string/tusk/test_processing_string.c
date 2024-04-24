@@ -5,7 +5,7 @@
 #include "test_processing_string.h"
 #include "../string_.h"
 #include "../processing_string.h"
-
+#include <assert.h>
 
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__)
 #define ASSERT_STRING_INT(expected, got) assertStringInt(expected, got, __FILE__, __FUNCTION__, __LINE__)
@@ -655,6 +655,23 @@ void test_allLettersInString_third(){
     }
     ASSERT_STRING_INT(1, ans);
 }
+
+void test_find_symbl_first(){
+    char s[100] = "asdfghjkl.gf";
+    char symbl = '.';
+    assert(find_symbl(s,symbl) == s+9);
+}
+void test_find_symbl_second(){
+    char s[100] = "asdfghjklgf";
+    char symbl = '.';
+    assert(find_symbl(s,symbl) == s+11);
+}
+void test_find_symbl_third(){
+    char s[100] = ".asdfghjklgf";
+    char symbl = '.';
+    assert(find_symbl(s,symbl) == s);
+}
+
 void test_lab18(){
     test_removeNonLetters_first();
     test_removeNonLetters_second();
@@ -741,4 +758,7 @@ void test_lab18(){
     test_allLettersInString_first();
     test_allLettersInString_second();
     test_allLettersInString_third();
+    test_find_symbl_first();
+    test_find_symbl_second();
+    test_find_symbl_third();
 }

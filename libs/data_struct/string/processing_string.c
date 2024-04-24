@@ -745,3 +745,14 @@ bool allLettersInString(char *s, char *word){
     }
     return count == len;
 }
+
+//получает указатель на первый символ или на последний элемент "\0" если символа нет
+char *find_symbl(char *s, char symbl){
+    char *begin = s;
+    while(*begin!='\0'){
+        if(*begin == symbl)
+            return begin;
+        begin++;
+    }
+    return begin;
+}

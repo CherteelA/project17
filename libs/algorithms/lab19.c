@@ -122,10 +122,110 @@ void test3_tusk1(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("2\n99\n55\n11\n66\n33\n22\n88\n77\n44\n",res);
-
+    remove("res.txt");
+    remove("my_file.txt");
 }
+//tusk 2
+void Float_values(FILE *file){
+    char values[1003];
+    FILE *Fresult = fopen("res.txt","w");
+    while(feof(file) == 0){
+        fgets(values,1000, file);
+        *findSpaceReverse(values + strlen_(values) - 1, values) == '\n' ? *findSpaceReverse(values + strlen_(values) - 1,values) = '\0' : *findSpaceReverse(values + strlen_(values) - 1, values);
+        char *point = find_symbl(values, '.');
+        if(*point == '\0'){
+            *point = '.';
+            *(point+1) = '0';
+            *(point+2) = '0';
+            *(point+3) = '\n';
+            *(point+4) = '\0';
+        }
+        else if(*point == '.' && *(point+2) == '\0'){
+            *(point+2) = '0';
+            *(point+3) = '\n';
+            *(point+4) = '\0';
+        }
+        else{
+            *(point+3) = '\n';
+            *(point+4) = '\0';
+        }
+        fputs(values, Fresult);
+
+    }
+    fclose(Fresult);
+}
+
+void test1_tusk2(){
+    char s[1000] = "159236478\n951632874\n323232.2535";
+    FILE *f = fopen("my_file.txt", "w");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    fputs(s,f);
+    fclose(f);
+    f = fopen("my_file.txt", "r");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    Float_values(f);
+    fclose(f);
+    FILE *file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[1000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("159236478.00\n951632874.00\n323232.25\n",res);
+    remove("res.txt");
+    remove("my_file.txt");
+}
+void test2_tusk2(){
+    char s[1000] = "159236478.1\n95.1632874\n323232";
+    FILE *f = fopen("my_file.txt", "w");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    fputs(s,f);
+    fclose(f);
+    f = fopen("my_file.txt", "r");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    Float_values(f);
+    fclose(f);
+    FILE *file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[1000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("159236478.10\n95.16\n323232.00\n",res);
+    remove("res.txt");
+    remove("my_file.txt");
+}
+
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
     test3_tusk1();
+    test1_tusk2();
+    test2_tusk2();
 }

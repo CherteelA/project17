@@ -122,4 +122,7 @@ void additionString(char *s1, char *s2, int n1, int n2);
 
 //Определить, входит ли в данную строку каждая буква данного слова
 bool allLettersInString(char *s, char *word);
+
+//получает указатель на первый символ или на последний элемент "\0" если символа нет
+char *find_symbl(char *s, char symbl);
 #endif //PROJECT17_PROCESSING_STRING_H
