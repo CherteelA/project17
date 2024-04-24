@@ -291,3 +291,15 @@ ordered_array_set ordered_array_set_complement(ordered_array_set setA){
     }
     return setC;
 }
+
+//дополнение вариация 2
+ordered_array_set ordered_array_set_complement_fromArray(ordered_array_set setA, int *arr){
+    ordered_array_set setC = ordered_array_set_create(setA.capacity);
+    for(int i = 0; i < setA.capacity; i++){
+        if(!ordered_array_value_in_set(setA, arr[i])){
+            setC.data[setC.size] = arr[i];
+            setC.size++;
+        }
+    }
+    return setC;
+}

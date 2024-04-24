@@ -75,4 +75,7 @@ void ordered_array_set_print (ordered_array_set set);
 
 // освобождает память, занимаемую множеством set
 void ordered_array_set_delete (ordered_array_set * set);
+
+//дополнение вариация 2
+ordered_array_set ordered_array_set_complement_fromArray(ordered_array_set setA, int *arr);
 #endif

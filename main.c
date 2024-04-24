@@ -1,10 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "libs/data_struct/string/tusk/test.h"
-#include "libs/data_struct/string/tusk/test_processing_string.h"
-
+#include "libs/algorithms/lab19.h"
 int main() {
-    //str_test();
-    test_lab18();
+    test_lab19();
     return 0;
 }
