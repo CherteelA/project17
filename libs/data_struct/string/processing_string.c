@@ -758,8 +758,8 @@ char *find_symbl(char *s, char symbl){
 }
 
 //есть ли в слове такая маска mask
-bool mask_in_str(WordDescriptor word, char *mask){
-    char *begin = word.begin;
+bool mask_in_str(WordDescriptor *word, char *mask){
+    char *begin = word->begin;
     char *begin_mask = mask;
     bool flag = false;
     while (true){
@@ -774,8 +774,24 @@ bool mask_in_str(WordDescriptor word, char *mask){
                 return true;
         }
         begin++;
-        if(*begin == *word.end)
+        if(*begin == *word->end)
             break;
     }
     return false;
+}
+
+//находит наибольшее слово в строке
+void largestWord(char *s, char *big){
+    getBagOfWords(&_bag, s);
+    char maxWord[1000];
+    int max_size = 0;
+    for(int i = 0; i < _bag.size; i++){
+        char word[1000];
+        *copy(_bag.words[i].begin, _bag.words[i].end, word) = '\0';
+        if(max_size< strlen_(word)){
+            *copy(word, word+ strlen_(word), big) = '\0';
+            max_size = (int)strlen_(word);
+        }
+    }
+    _bag.size = 0;
 }

@@ -127,5 +127,8 @@ bool allLettersInString(char *s, char *word);
 char *find_symbl(char *s, char symbl);
 
 //есть ли в слове такая маска mask
-bool mask_in_str(WordDescriptor word, char *mask);
+bool mask_in_str(WordDescriptor *word, char *mask);
+
+//находит наибольшее слово в строке
+void largestWord(char *s, char *big);
 #endif //PROJECT17_PROCESSING_STRING_H

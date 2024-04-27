@@ -366,7 +366,7 @@ void removeSomeStr(FILE *f, char *mask){
     char *begin_res = res_arr;
     int countSpase = 0;
     for(int i = 0; i < words.size; i++){
-        if(mask_in_str(words.words[i], mask)){
+        if(mask_in_str(&words.words[i], mask)){
             countSpase++;
             begin_res = copy(words.words[i].begin, words.words[i].end, begin_res);
             if(countSpase == 7){
@@ -471,6 +471,99 @@ void test3_tusk4(){
     remove("res.txt");
     remove("my_file.txt");
 }
+//tusk 5................................................................................................................
+void more_large_word(FILE *f){
+    char largeWods[10000];
+    char *begin = largeWods;
+    while (feof(f) == 0){
+        char string[10000];
+        fgets(string, 10000, f);
+        *find_symbl(string, '\n') = '\0';
+        char bigWord[1000];
+        largestWord(string, bigWord);
+        begin = copy(bigWord, bigWord + strlen_(bigWord), begin);
+        *begin = '\n';
+        begin++;
+    }
+    *(begin-1) = '\0';
+    fclose(f);
+    FILE *file = fopen("res.txt", "w");
+    fputs(largeWods,file);
+    fclose(file);
+}
+
+void test1_tusk5(){
+    char s[10000] = "ggasefasfffff aesdf\nggasefasf elmberr\nekoveuv ejweuvr\nerwhcvuiev daverwer homE verte\nttttwegvsdv egvwvsdv";
+    FILE *f = fopen("my_file.txt", "w");
+    fputs(s, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r");
+    more_large_word(f);
+    FILE *file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[100000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("ggasefasfffff\nggasefasf\nekoveuv\nerwhcvuiev\nttttwegvsdv", res);
+    remove("res.txt");
+    remove("my_file.txt");
+}
+void test2_tusk5(){
+    char s[10000] = "ggasefasff ggasefasfffff\nevv ggasefasf elmberr\nvev ekoveuv ejweuvr\nrrrr erwhcvuiev daverwer homE verte\nv egvwvsdv";
+    FILE *f = fopen("my_file.txt", "w");
+    fputs(s, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r");
+    more_large_word(f);
+    FILE *file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[100000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("ggasefasfffff\nggasefasf\nekoveuv\nerwhcvuiev\negvwvsdv", res);
+    remove("res.txt");
+    remove("my_file.txt");
+}
+void test3_tusk5(){
+    char s[10000] = "ggasefasff\nelmberr";
+    FILE *f = fopen("my_file.txt", "w");
+    fputs(s, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r");
+    more_large_word(f);
+    FILE *file = fopen("res.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[100000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("ggasefasff\nelmberr", res);
+    remove("res.txt");
+    remove("my_file.txt");
+}
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
@@ -483,4 +576,7 @@ void test_lab19(){
     test1_tusk4();
     test2_tusk4();
     test3_tusk4();
+    test1_tusk5();
+    test2_tusk5();
+    test3_tusk5();
 }
