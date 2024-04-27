@@ -756,3 +756,26 @@ char *find_symbl(char *s, char symbl){
     }
     return begin;
 }
+
+//есть ли в слове такая маска mask
+bool mask_in_str(WordDescriptor word, char *mask){
+    char *begin = word.begin;
+    char *begin_mask = mask;
+    bool flag = false;
+    while (true){
+        if(*begin == *begin_mask && flag == false)
+            flag = true;
+        if(flag) {
+            if (*begin != *begin_mask)
+                return false;
+            if (*begin == *begin_mask)
+                begin_mask++;
+            if (*begin_mask == '\0')
+                return true;
+        }
+        begin++;
+        if(*begin == *word.end)
+            break;
+    }
+    return false;
+}

@@ -125,4 +125,7 @@ bool allLettersInString(char *s, char *word);
 
 //получает указатель на первый символ или на последний элемент "\0" если символа нет
 char *find_symbl(char *s, char symbl);
+
+//есть ли в слове такая маска mask
+bool mask_in_str(WordDescriptor word, char *mask);
 #endif //PROJECT17_PROCESSING_STRING_H
