@@ -32,7 +32,31 @@ void assertStringInt(int expected, int got,
     } else
         fprintf(stderr, "%s - OK\n", funcName);
 }
-
+void printInt(int *arr, int size){
+    for(int i = 0; i < size;i++){
+        fprintf(stderr,"%d ", arr[i]);
+    }
+}
+void assertStringIntArr(int *expected, int size_expected, int *got,int size_got,
+                     char const *fileName, char const *funcName,
+                     int line) {
+    bool flag = size_expected == size_got;
+    if(flag) {
+        for (int i = 0; i < size_got; i++) {
+            if (expected[i] != got[i])
+                flag = false;
+        }
+    }
+    if (!flag) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr,"expected: ");
+        printInt(expected,size_expected);
+        fprintf(stderr,"got: ");
+        printInt(got, size_got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
 //tusk 1.........................................................................................
 void test_removeNonLetters_first(){
     char words[] = "hello, how are you";

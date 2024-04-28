@@ -2,7 +2,9 @@
 // Created by admin on 23.04.2024.
 //
 #include "lab19.h"
+#include <math.h>
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__);
+#define ASSERT_STRING_INT_ARR(expected, size_expected, got, size_got) assertStringIntArr(expected, size_expected, got, size_got, __FILE__, __FUNCTION__, __LINE__);
 //tusk1
 void toColFromRow(FILE *file){
     char n_arr[100];
@@ -564,6 +566,116 @@ void test3_tusk5(){
     remove("res.txt");
     remove("my_file.txt");
 }
+
+//tusk 6................................................................................................................
+typedef struct polynomial{
+    int index;//показатель
+    int coefficient;//число
+}pol;
+
+void delet_res_x(FILE *f, int x){
+    int res = 0;
+    int values[10000];
+    int size = 0;
+    FILE *Fres = fopen("res.txt", "wb");
+    bool flag_add = true;
+    while (feof(f) == 0) {
+        pol value;
+        if (fread(&value, sizeof(pol), 1, f) == 1) {
+            values[size] = value.coefficient;
+            values[size + 1] = value.index;
+            size += 2;
+            if (value.index == 0) {
+                res += value.coefficient;
+                if (res == 0) {
+                    flag_add = false;
+                }
+                res = 0;
+                if (flag_add) {
+                    pol ans;
+                    int i = 0;
+                    while (i < size) {
+                        ans.coefficient = values[i];
+                        ans.index = values[i + 1];
+                        i += 2;
+                        fwrite(&ans, sizeof(pol), 1, Fres);
+                    }
+                }
+                flag_add = true;
+                size = 0;
+
+            } else {
+                res += (int) pow((double) x, (double) value.index) * value.coefficient;
+            }
+        }
+    }
+    fclose(Fres);
+}
+
+void test1_tusk6(){
+    pol structValues;
+    int arr[24] = {1,4,5,3,4,2,-3,1,1,0,3,3,2,2,10,1,12,0,1,2,-3,1,2,0};
+    FILE *f = fopen("my_file.txt", "wb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    for(int index = 0; index < 24; index+=2){
+        structValues.coefficient = arr[index];
+        structValues.index = arr[index+1];
+        fwrite(&structValues, sizeof(pol), 1, f);
+    }
+    fclose(f);
+    pol res;
+    f = fopen("my_file.txt", "rb");
+    delet_res_x(f, 2);
+    fclose(f);
+    f = fopen("res.txt", "rb");
+    int res_arr[24];
+    int size_res_arr = 0;
+    while (feof(f)==0){
+        if(fread(&res, sizeof(pol), 1, f)==1){
+            res_arr[size_res_arr] = res.coefficient;
+            res_arr[size_res_arr+1] = res.index;
+            size_res_arr+=2;
+        }
+    }
+    fclose(f);
+    int expected[] = {1, 4, 5, 3, 4, 2, -3, 1, 1, 0, 3, 3, 2, 2, 10, 1, 12, 0};
+    ASSERT_STRING_INT_ARR(expected, 18, res_arr, size_res_arr)
+    remove("res.txt");
+    remove("my_file.txt");
+}
+void test2_tusk6(){
+    pol structValues;
+    int arr[22] = {2,4,4,3,-5,2,-1,1,1,0,1,3,2,1,3,0,1,2,-3,1,2,0};
+    FILE *f = fopen("my_file.txt", "wb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    for(int index = 0; index < 22; index+=2){
+        structValues.coefficient = arr[index];
+        structValues.index = arr[index+1];
+        fwrite(&structValues, sizeof(pol), 1, f);
+    }
+    fclose(f);
+    pol res;
+    f = fopen("my_file.txt", "rb");
+    delet_res_x(f, -1);
+    fclose(f);
+    f = fopen("res.txt", "rb");
+    int res_arr[22];
+    int size_res_arr = 0;
+    while (feof(f)==0){
+        if(fread(&res, sizeof(pol), 1, f)==1){
+            res_arr[size_res_arr] = res.coefficient;
+            res_arr[size_res_arr+1] = res.index;
+            size_res_arr+=2;
+        }
+    }
+    fclose(f);
+    int expected[] = {2,4,4,3,-5,2,-1,1,1,0,1,2,-3,1,2,0};
+    ASSERT_STRING_INT_ARR(expected, 16, res_arr, size_res_arr)
+    remove("res.txt");
+    remove("my_file.txt");
+}
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
@@ -579,4 +691,6 @@ void test_lab19(){
     test1_tusk5();
     test2_tusk5();
     test3_tusk5();
+    test1_tusk6();
+    test2_tusk6();
 }
