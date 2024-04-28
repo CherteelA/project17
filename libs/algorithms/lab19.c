@@ -676,6 +676,64 @@ void test2_tusk6(){
     remove("res.txt");
     remove("my_file.txt");
 }
+//tusk 7................................................................................................................
+void ordValues(FILE *f){
+    int value;
+    int size_plus = 0;
+    int size_minus = 0;
+    int values_plus[100000];
+    int values_minus[100000];
+    while (feof(f) == 0){
+        if(fread(&value, sizeof(int), 1, f) == 1){
+            if(value>0) {
+                values_plus[size_plus] = value;
+                size_plus++;
+            }
+            else {
+                values_minus[size_minus] = value;
+                size_minus++;
+            }
+        }
+    }
+    fseek(f,0L,0);
+    for(int i = 0; i < size_plus; i++){
+        fwrite(&values_plus[i], sizeof(int), 1, f);
+    }
+    for(int i = 0; i < size_minus; i++){
+        fwrite(&values_minus[i], sizeof(int), 1, f);
+    }
+}
+
+void test1_tusk7(){
+    int arr[] = {1,-5,-6,-8,-9,2,1,7,-11,-20,2,54,101,-1,INT_MAX, INT_MIN};
+    FILE *f = fopen("my_file.txt", "wb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r+b");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    ordValues(f);
+    fclose(f);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {1,2,1,7,2,54,101,INT_MAX,  -5,-6,-8,-9,-11,-20,-1,INT_MIN};
+    ASSERT_STRING_INT_ARR(expected, 16, res, size)
+    remove("my_file.txt");
+}
+
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
@@ -693,4 +751,5 @@ void test_lab19(){
     test3_tusk5();
     test1_tusk6();
     test2_tusk6();
+    test1_tusk7();
 }
