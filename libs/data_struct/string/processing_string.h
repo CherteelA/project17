@@ -6,8 +6,7 @@
 #ifndef PROJECT17_PROCESSING_STRING_H
 #define PROJECT17_PROCESSING_STRING_H
 #define MAX_STRING_SIZE 100
-#define MAX_N_WORDS_IN_STRING 100
-#define MAX_WORD_SIZE 20
+#define MAX_N_WORDS_IN_STRING 1000
 typedef struct WordDescriptor {
     char *begin;
     char *end;
