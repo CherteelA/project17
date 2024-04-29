@@ -733,7 +733,171 @@ void test1_tusk7(){
     ASSERT_STRING_INT_ARR(expected, 16, res, size)
     remove("my_file.txt");
 }
-
+void test2_tusk7(){
+    int arr[] = {-1,2};
+    FILE *f = fopen("my_file.txt", "wb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r+b");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    ordValues(f);
+    fclose(f);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {2,-1};
+    ASSERT_STRING_INT_ARR(expected, 2, res, size)
+    remove("my_file.txt");
+}
+void test3_tusk7(){
+    int arr[] = {-1,-5,-6,-8,-9,-2,-1,7,11,20,2,54,101,1,INT_MAX, INT_MIN};
+    FILE *f = fopen("my_file.txt", "wb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    f = fopen("my_file.txt", "r+b");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    ordValues(f);
+    fclose(f);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {7,11,20,2,54,101,1,INT_MAX,-1,-5,-6,-8,-9,-2,-1,INT_MIN};
+    ASSERT_STRING_INT_ARR(expected, 16, res, size)
+    remove("my_file.txt");
+}
+//tusk 8................................................................................................................
+void change_matrix(FILE *f){
+    int matrix_order;
+    if(fread(&matrix_order, sizeof(int), 1, f) == 0)
+        fprintf(stderr, "fail");
+    int matrixValue[matrix_order*matrix_order];
+    int res_arr[10000];
+    int size_res = 0;
+    while (feof(f)==0){
+        if(fread(matrixValue, sizeof(matrixValue), 1, f) > 0){
+            matrix m = createMatrixFromArray(matrixValue, matrix_order,matrix_order);
+            if(!isSymmetricMatrix(&m)){
+                transposeSquareMatrix(&m);
+            }
+            for(int i = 0; i < m.nRows; i++){
+                for(int j = 0; j < m.nCols; j++){
+                    res_arr[size_res] = m.values[i][j];
+                    size_res++;
+                }
+            }
+        }
+    }
+    fseek(f,0L, 0);
+    fwrite(&matrix_order, sizeof(int), 1, f);
+    fwrite(res_arr, size_res* sizeof(int), 1, f);
+}
+void test1_tusk8(){
+    int arr[] = {3,1,2,3,4,5,6,7,8,9,1,1,1,2,2,2,3,3,3,9,9,9,8,8,8,7,7,7,4,4,4,5,5,5,6,6,6};
+    FILE *f = fopen("my_file.txt", "wb");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    FILE *file= fopen("my_file.txt", "r+b");
+    if(file == NULL)
+        fprintf(stderr, "fail");
+    change_matrix(file);
+    fclose(file);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {3, 1,4,7,2,5,8,3,6,9,1,2,3,1,2,3,1,2,3,9,8,7,9,8,7,9,8,7,4,5,6,4,5,6,4,5,6};
+    ASSERT_STRING_INT_ARR(expected, 37, res, size)
+    remove("my_file.txt");
+}
+void test2_tusk8(){
+    int arr[] = {3,1,0,0,0,1,0,0,0,1,1,1,1,2,2,2,3,3,3,9,9,9,8,8,8,7,7,7,4,4,4,5,5,5,6,6,6};
+    FILE *f = fopen("my_file.txt", "wb");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    FILE *file= fopen("my_file.txt", "r+b");
+    if(file == NULL)
+        fprintf(stderr, "fail");
+    change_matrix(file);
+    fclose(file);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {3, 1,0,0,0,1,0,0,0,1,1,2,3,1,2,3,1,2,3,9,8,7,9,8,7,9,8,7,4,5,6,4,5,6,4,5,6};
+    ASSERT_STRING_INT_ARR(expected, 37, res, size)
+    remove("my_file.txt");
+}
+void test3_tusk8(){
+    int arr[] = {5,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1};
+    FILE *f = fopen("my_file.txt", "wb");
+    fwrite(arr, sizeof(arr), 1, f);
+    fclose(f);
+    FILE *file= fopen("my_file.txt", "r+b");
+    if(file == NULL)
+        fprintf(stderr, "fail");
+    change_matrix(file);
+    fclose(file);
+    f = fopen("my_file.txt", "rb");
+    if(f == NULL)
+        fprintf(stderr, "fail");
+    int res[100000];
+    int size = 0;
+    while (feof(f) == 0){
+        int value;
+        if(fread(&value, sizeof(int), 1, f)==1){
+            res[size] = value;
+            size++;
+        }
+    }
+    fclose(f);
+    int expected[] = {5,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1};
+    ASSERT_STRING_INT_ARR(expected, 26, res, size)
+    remove("my_file.txt");
+}
 void test_lab19(){
     test1_tusk1();
     test2_tusk1();
@@ -752,4 +916,9 @@ void test_lab19(){
     test1_tusk6();
     test2_tusk6();
     test1_tusk7();
+    test2_tusk7();
+    test3_tusk7();
+    test1_tusk8();
+    test2_tusk8();
+    test3_tusk8();
 }
