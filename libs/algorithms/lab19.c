@@ -1,8 +1,14 @@
 //
 // Created by admin on 23.04.2024.
 //
-#include "lab19.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
+#include "io.h"
+#include "../data_struct/matrix/matrix.h"
+#include "../data_struct/string/string_.h"
+#include "../data_struct/string/processing_string.h"
+#include "../data_struct/string/tusk/test_processing_string.h"
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__);
 #define ASSERT_STRING_INT_ARR(expected, size_expected, got, size_got) assertStringIntArr(expected, size_expected, got, size_got, __FILE__, __FUNCTION__, __LINE__);
 //tusk1
@@ -34,25 +40,23 @@ void toColFromRow(FILE *file){
         result[size_res] = '\n';
         size_res++;
     }
-    FILE *Fresult = fopen("res.txt","w");
-    fputs(tempNumb, Fresult);
-    fputs(result, Fresult);
-    fclose(Fresult);
+    fseek(file, 0l, 0);
+    fputs(tempNumb, file);
+    fputs(result, file);
 }
 
 void test1_tusk1(){
     char s[1000] = "4\n123456789\n963852741\n159236478\n951632874";
-    FILE *f = fopen("my_file.txt", "w");
-    if(f==NULL) {
+    FILE *file = fopen("my_file.txt", "w+");
+    if(file==NULL) {
         printf("NULL");
         return;
     }
-    fputs(s,f);
-    fclose(f);
-    FILE *file= fopen("my_file.txt", "r");
-    toColFromRow(f);
+    fputs(s,file);
+    fseek(file,0l,0);
+    toColFromRow(file);
     fclose(file);
-    file = fopen("res.txt", "r");
+    file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -66,22 +70,20 @@ void test1_tusk1(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("4\n1919\n2655\n3391\n4826\n5533\n6262\n7748\n8477\n9184\n",res)
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test2_tusk1(){
     char s[1000] = "5\n951632874\n789420000\n556236985\n123456789\n333333333";
-    FILE *f = fopen("my_file.txt", "w");
-    if(f==NULL) {
+    FILE *file = fopen("my_file.txt", "w+");
+    if(file==NULL) {
         printf("NULL");
         return;
     }
-    fputs(s,f);
-    fclose(f);
-    FILE *file= fopen("my_file.txt", "r");
-    toColFromRow(f);
+    fputs(s,file);
+    fseek(file,0l,0);
+    toColFromRow(file);
     fclose(file);
-    file = fopen("res.txt", "r");
+    file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -95,22 +97,20 @@ void test2_tusk1(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("5\n97513\n58523\n19633\n64243\n32353\n20663\n80973\n70883\n40593\n",res)
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test3_tusk1(){
     char s[1000] = "2\n951632874\n951632874";
-    FILE *f = fopen("my_file.txt", "w");
-    if(f==NULL) {
+    FILE *file = fopen("my_file.txt", "w+");
+    if(file==NULL) {
         printf("NULL");
         return;
     }
-    fputs(s,f);
-    fclose(f);
-    FILE *file= fopen("my_file.txt", "r");
-    toColFromRow(f);
+    fputs(s,file);
+    fseek(file,0l,0);
+    toColFromRow(file);
     fclose(file);
-    file = fopen("res.txt", "r");
+    file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -124,56 +124,60 @@ void test3_tusk1(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("2\n99\n55\n11\n66\n33\n22\n88\n77\n44\n",res)
-    remove("res.txt");
     remove("my_file.txt");
 }
 //tusk 2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 void Float_values(FILE *file){
-    char values[1003];
-    FILE *Fresult = fopen("res.txt","w");
+    char values[1000];
+    char arr_res[1000][1000];
+    int size = 0;
     while(feof(file) == 0){
-        fgets(values,1000, file);
-        *findSpaceReverse(values + strlen_(values) - 1, values) == '\n' ? *findSpaceReverse(values + strlen_(values) - 1,values) = '\0' : *findSpaceReverse(values + strlen_(values) - 1, values);
-        char *point = find_symbl(values, '.');
-        if(*point == '\0'){
-            *point = '.';
-            *(point+1) = '0';
-            *(point+2) = '0';
-            *(point+3) = '\n';
-            *(point+4) = '\0';
+        if(fgets(values,1000, file)!=0) {
+            *findSpaceReverse(values + strlen_(values) - 1, values) == '\n' ? *findSpaceReverse(
+                    values + strlen_(values) - 1, values) = '\0' : *findSpaceReverse(values + strlen_(values) - 1,
+                                                                                     values);
+            char *point = find_symbl(values, '.');
+            if (*point == '\0') {
+                *point = '.';
+                *(point + 1) = '0';
+                *(point + 2) = '0';
+                *(point + 3) = '\n';
+                *(point + 4) = '\0';
+            } else if (*point == '.' && *(point + 2) == '\0') {
+                *(point + 2) = '0';
+                *(point + 3) = '\n';
+                *(point + 4) = '\0';
+            } else {
+                *(point + 3) = '\n';
+                *(point + 4) = '\0';
+            }
+            *copy(values, strlen_(values)+values, arr_res[size]) = '\0';
+            size++;
         }
-        else if(*point == '.' && *(point+2) == '\0'){
-            *(point+2) = '0';
-            *(point+3) = '\n';
-            *(point+4) = '\0';
-        }
-        else{
-            *(point+3) = '\n';
-            *(point+4) = '\0';
-        }
-        fputs(values, Fresult);
-
     }
-    fclose(Fresult);
+    fseek(file, 0L, 0);
+
+    for(int i = 0; i < size; i++){
+        char str[1000] = {0};
+        char *begin = str;
+        *copy(arr_res[i], arr_res[i]+ strlen_(arr_res[i]), begin) = '\0';
+        fputs(str, file);
+    }
+    chsize(fileno(file), ftell(file));
 }
 
 void test1_tusk2(){
     char s[1000] = "159236478\n951632874\n323232.2535";
-    FILE *f = fopen("my_file.txt", "w");
+    FILE *f = fopen("my_file.txt", "w+");
     if(f==NULL) {
         printf("NULL");
         return;
     }
     fputs(s,f);
-    fclose(f);
-    f = fopen("my_file.txt", "r");
-    if(f==NULL) {
-        printf("NULL");
-        return;
-    }
+    fseek(f,0L,0);
     Float_values(f);
     fclose(f);
-    FILE *file = fopen("res.txt", "r");
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -187,26 +191,20 @@ void test1_tusk2(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("159236478.00\n951632874.00\n323232.25\n",res)
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test2_tusk2(){
     char s[1000] = "159236478.1\n95.1632874\n323232";
-    FILE *f = fopen("my_file.txt", "w");
+    FILE *f = fopen("my_file.txt", "w+");
     if(f==NULL) {
         printf("NULL");
         return;
     }
     fputs(s,f);
-    fclose(f);
-    f = fopen("my_file.txt", "r");
-    if(f==NULL) {
-        printf("NULL");
-        return;
-    }
+    fseek(f,0L,0);
     Float_values(f);
     fclose(f);
-    FILE *file = fopen("res.txt", "r");
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -220,7 +218,6 @@ void test2_tusk2(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("159236478.10\n95.16\n323232.00\n",res)
-    remove("res.txt");
     remove("my_file.txt");
 }
 
@@ -361,7 +358,6 @@ void removeSomeStr(FILE *f, char *mask){
         begin++;
     }
     *(begin-1) = '\0';
-    fclose(f);
     BagOfWords words;
     getBagOfWords(&words, arr);
     char res_arr[100000];
@@ -383,10 +379,9 @@ void removeSomeStr(FILE *f, char *mask){
     words.size = 0;
     *(begin_res-1) = '\n';
     *(begin_res) = '\0';
-    FILE *file = fopen("res.txt", "w");
-    fprintf(file, "%s", res_arr);
-    fflush(file);
-    fclose(file);
+    fseek(f, 0L, 0);
+    fputs(res_arr, f);
+    chsize(fileno(f), ftell(f));
 }
 
 void test1_tusk4(){
@@ -400,7 +395,7 @@ void test1_tusk4(){
     fseek(f, 0L, 0);
     removeSomeStr(f, "e");
     fclose(f);
-    FILE *file = fopen("res.txt", "r");
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -413,8 +408,7 @@ void test1_tusk4(){
     }
     res[size-1]='\0';
     fclose(file);
-    ASSERT_STRING("elmberr ekoveuv ejweuvr erwcvuiev\n", res);
-    remove("res.txt");
+    ASSERT_STRING("elmberr ekoveuv ejweuvr erwcvuiev\n", res)
     remove("my_file.txt");
 }
 void test2_tusk4(){
@@ -428,7 +422,7 @@ void test2_tusk4(){
     fseek(f, 0L, 0);
     removeSomeStr(f, "e");
     fclose(f);
-    FILE *file = fopen("res.txt", "r");
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -442,7 +436,6 @@ void test2_tusk4(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("ggasefasfffff aesdf ggasefasf elmberr ekoveuv ejweuvr erwhcvuiev\ndaverwer verte ewegvsdv egvwvsdv\n", res);
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test3_tusk4(){
@@ -456,7 +449,7 @@ void test3_tusk4(){
     fseek(f, 0L, 0);
     removeSomeStr(f, "e");
     fclose(f);
-    FILE *file = fopen("res.txt", "r");
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -470,38 +463,64 @@ void test3_tusk4(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("ggasefasfffff aesdf ggasefasf elmberr ekoveuv ejweuvr erwhcvuiev\ndaverwer verte ewegvsdv egvwvsdv\n", res);
-    remove("res.txt");
+    remove("my_file.txt");
+}
+void test4_tusk4(){
+    char s[10000] = "ggasfeasfffff asdf\nggasfasf lmbrr\nkovuv jwuvr\nrwhcvuiv davrwr hom vrt\nwgvsdv gvwvsdv";
+    FILE *f = fopen("my_file.txt", "w+");
+    if(f==NULL) {
+        printf("NULL");
+        return;
+    }
+    fputs(s,f);
+    fseek(f, 0L, 0);
+    removeSomeStr(f, "e");
+    fclose(f);
+    FILE *file = fopen("my_file.txt", "r");
+    if(file==NULL) {
+        printf("NULL");
+        return;
+    }
+    char res[1000];
+    int size = 0;
+    while (feof(file)==0){
+        res[size] = (char)(getc(file));
+        size++;
+    }
+    res[size-1]='\0';
+    fclose(file);
+    ASSERT_STRING("ggasfeasfffff\n", res);
     remove("my_file.txt");
 }
 //tusk 5................................................................................................................
 void more_large_word(FILE *f){
     char largeWods[10000];
     char *begin = largeWods;
-    while (feof(f) == 0){
+    while (feof(f) == 0) {
         char string[10000];
-        fgets(string, 10000, f);
-        *find_symbl(string, '\n') = '\0';
-        char bigWord[1000];
-        largestWord(string, bigWord);
-        begin = copy(bigWord, bigWord + strlen_(bigWord), begin);
-        *begin = '\n';
-        begin++;
+        if (fgets(string, 10000, f) != 0) {
+            *find_symbl(string, '\n') = '\0';
+            char bigWord[1000];
+            largestWord(string, bigWord);
+            begin = copy(bigWord, bigWord + strlen_(bigWord), begin);
+            *begin = '\n';
+            begin++;
+        }
     }
     *(begin-1) = '\0';
-    fclose(f);
-    FILE *file = fopen("res.txt", "w");
-    fputs(largeWods,file);
-    fclose(file);
+    fseek(f,0L,0);
+    fputs(largeWods,f);
+    chsize(fileno(f), ftell(f));
 }
 
 void test1_tusk5(){
     char s[10000] = "ggasefasfffff aesdf\nggasefasf elmberr\nekoveuv ejweuvr\nerwhcvuiev daverwer homE verte\nttttwegvsdv egvwvsdv";
-    FILE *f = fopen("my_file.txt", "w");
+    FILE *f = fopen("my_file.txt", "w+");
     fputs(s, f);
-    fclose(f);
-    f = fopen("my_file.txt", "r");
+    fseek(f, 0L,0);
     more_large_word(f);
-    FILE *file = fopen("res.txt", "r");
+    fclose(f);
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -515,17 +534,16 @@ void test1_tusk5(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("ggasefasfffff\nggasefasf\nekoveuv\nerwhcvuiev\nttttwegvsdv", res);
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test2_tusk5(){
     char s[10000] = "ggasefasff ggasefasfffff\nevv ggasefasf elmberr\nvev ekoveuv ejweuvr\nrrrr erwhcvuiev daverwer homE verte\nv egvwvsdv";
-    FILE *f = fopen("my_file.txt", "w");
+    FILE *f = fopen("my_file.txt", "w+");
     fputs(s, f);
-    fclose(f);
-    f = fopen("my_file.txt", "r");
+    fseek(f, 0L,0);
     more_large_word(f);
-    FILE *file = fopen("res.txt", "r");
+    fclose(f);
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -544,12 +562,12 @@ void test2_tusk5(){
 }
 void test3_tusk5(){
     char s[10000] = "ggasefasff\nelmberr";
-    FILE *f = fopen("my_file.txt", "w");
+    FILE *f = fopen("my_file.txt", "w+");
     fputs(s, f);
-    fclose(f);
-    f = fopen("my_file.txt", "r");
+    fseek(f, 0L,0);
     more_large_word(f);
-    FILE *file = fopen("res.txt", "r");
+    fclose(f);
+    FILE *file = fopen("my_file.txt", "r");
     if(file==NULL) {
         printf("NULL");
         return;
@@ -577,7 +595,7 @@ void delet_res_x(FILE *f, int x){
     int res = 0;
     int values[10000];
     int size = 0;
-    FILE *Fres = fopen("res.txt", "wb");
+    FILE *Fres = fopen("res.txt", "w+b");
     bool flag_add = true;
     while (feof(f) == 0) {
         pol value;
@@ -609,13 +627,24 @@ void delet_res_x(FILE *f, int x){
             }
         }
     }
+    fseek(f, 0L, 0);
+    fseek(Fres, 0L, 0);
+
+    pol ans;
+    while (feof(Fres) == 0){
+        if(fread(&ans, sizeof(ans), 1, Fres) !=0){
+            fwrite(&ans, sizeof(ans), 1,f);
+        }
+    }
     fclose(Fres);
+    remove("res.txt");
+    chsize(fileno(f), ftell(f));
 }
 
 void test1_tusk6(){
     pol structValues;
     int arr[24] = {1,4,5,3,4,2,-3,1,1,0,3,3,2,2,10,1,12,0,1,2,-3,1,2,0};
-    FILE *f = fopen("my_file.txt", "wb");
+    FILE *f = fopen("my_file.txt", "w+b");
     if(f == NULL)
         fprintf(stderr, "fail");
     for(int index = 0; index < 24; index+=2){
@@ -623,12 +652,12 @@ void test1_tusk6(){
         structValues.index = arr[index+1];
         fwrite(&structValues, sizeof(pol), 1, f);
     }
-    fclose(f);
+
     pol res;
-    f = fopen("my_file.txt", "rb");
+    fseek(f, 0L, 0);
     delet_res_x(f, 2);
     fclose(f);
-    f = fopen("res.txt", "rb");
+    f = fopen("my_file.txt", "rb");
     int res_arr[24];
     int size_res_arr = 0;
     while (feof(f)==0){
@@ -641,13 +670,12 @@ void test1_tusk6(){
     fclose(f);
     int expected[] = {1, 4, 5, 3, 4, 2, -3, 1, 1, 0, 3, 3, 2, 2, 10, 1, 12, 0};
     ASSERT_STRING_INT_ARR(expected, 18, res_arr, size_res_arr)
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test2_tusk6(){
     pol structValues;
     int arr[22] = {2,4,4,3,-5,2,-1,1,1,0,1,3,2,1,3,0,1,2,-3,1,2,0};
-    FILE *f = fopen("my_file.txt", "wb");
+    FILE *f = fopen("my_file.txt", "w+b");
     if(f == NULL)
         fprintf(stderr, "fail");
     for(int index = 0; index < 22; index+=2){
@@ -655,12 +683,11 @@ void test2_tusk6(){
         structValues.index = arr[index+1];
         fwrite(&structValues, sizeof(pol), 1, f);
     }
-    fclose(f);
+    fseek(f, 0L, 0);
     pol res;
-    f = fopen("my_file.txt", "rb");
     delet_res_x(f, -1);
     fclose(f);
-    f = fopen("res.txt", "rb");
+    f = fopen("my_file.txt", "rb");
     int res_arr[22];
     int size_res_arr = 0;
     while (feof(f)==0){
@@ -673,7 +700,6 @@ void test2_tusk6(){
     fclose(f);
     int expected[] = {2,4,4,3,-5,2,-1,1,1,0,1,2,-3,1,2,0};
     ASSERT_STRING_INT_ARR(expected, 16, res_arr, size_res_arr)
-    remove("res.txt");
     remove("my_file.txt");
 }
 //tusk 7................................................................................................................
@@ -935,33 +961,31 @@ void sport(FILE *f, int n){
         size_arr_max_value++;
         arr_value[index] = -1;
     }
-    FILE *file = fopen("res.txt", "wb");
+    fseek(f,0L,0);
     for(int i = 0; i < size_arr_max_value; i++){
         char tempStr[50] = {0};
         char *begin = tempStr;
         copy(names.fio[arr_max_index[i]], names.fio[arr_max_index[i]] + strlen_(names.fio[arr_max_index[i]]), begin);
-        fwrite(tempStr, sizeof(tempStr), 1, file);
-        fwrite(&arr_max_value[i], sizeof(int), 1, file);
+        fwrite(tempStr, sizeof(tempStr), 1, f);
+        fwrite(&arr_max_value[i], sizeof(int), 1, f);
     }
-    fclose(file);
+    chsize(fileno(f), ftell(f));
 }
 void test1_tusk9(){
     char name[][50] = {"Fokin Sashko Valentinovich", "Sharipov Genadi Antonovich", "James Brown Fedorovich", "Hector Martinez Petrovich", "Ben Floyd Pantileivich", "Shane Owens Aleksandrovich", "Bradley Morales Ivanovich", "Sitnikov Aleksey Pavlovich"};
     int values[] = {15,35,24,40,28,31,27,-1}; //АДЖУМАНИЯ
-    FILE *f = fopen("my_file.txt", "wb");
+    FILE *f = fopen("my_file.txt", "w+b");
     if(f == NULL)
         fprintf(stderr, "fail");
     for(int i = 0; i < 8; i++){
         fwrite(name[i], sizeof(name[i]), 1, f);
         fwrite(&values[i], sizeof(int), 1, f);
     }
-    fclose(f);
-    f = fopen("my_file.txt", "r+b");
-    if(f == NULL)
-        fprintf(stderr, "fail");
+
+    fseek(f, 0L,0);
     sport(f, 5);
     fclose(f);
-    f = fopen("res.txt", "rb");
+    f = fopen("my_file.txt", "rb");
     char res[1000];
     int values_max[5];
     int size = 0;
@@ -987,20 +1011,17 @@ void test1_tusk9(){
 void test2_tusk9(){
     char name[][50] = {"Fokin Sashko Valentinovich", "Sharipov Genadi Antonovich", "James Brown Fedorovich", "Hector Martinez Petrovich", "Ben Floyd Pantileivich", "Shane Owens Aleksandrovich", "Bradley Morales Ivanovich", "Sitnikov Aleksey Pavlovich"};
     int values[] = {28,35,24,40,28,31,28,-1}; //АДЖУМАНИЯ
-    FILE *f = fopen("my_file.txt", "wb");
+    FILE *f = fopen("my_file.txt", "w+b");
     if(f == NULL)
         fprintf(stderr, "fail");
     for(int i = 0; i < 8; i++){
         fwrite(name[i], sizeof(name[i]), 1, f);
         fwrite(&values[i], sizeof(int), 1, f);
     }
-    fclose(f);
-    f = fopen("my_file.txt", "r+b");
-    if(f == NULL)
-        fprintf(stderr, "fail");
+    fseek(f, 0L,0);
     sport(f, 5);
     fclose(f);
-    f = fopen("res.txt", "rb");
+    f = fopen("my_file.txt", "rb");
     char res[1000];
     int values_max[5];
     int size = 0;
@@ -1037,7 +1058,7 @@ typedef struct send{
 void sort_product(FILE *f, FILE *g){
     product prod;
     send sendProd;
-    FILE *res = fopen("res.txt", "wb");
+    FILE *res = fopen("res.txt", "w+b");
     while (feof(f)==0){
 
         if(fread(&prod, sizeof(product), 1, f) !=0){
@@ -1055,14 +1076,24 @@ void sort_product(FILE *f, FILE *g){
             }
         }
     }
+    fseek(res, 0L, 0);
+    fseek(f, 0L, 0);
+
+    while (feof(res) == 0){
+        if(fread(&prod, sizeof(prod), 1, res) !=0){
+            fwrite(&prod, sizeof(prod), 1, f);
+        }
+    }
     fclose(res);
+    chsize(fileno(f), ftell(f));
+    remove("res.txt");
 }
 void test1_tusk10(){
     product priseList;
     int arr[] = {50, 3000, 60,300, 30000, 100, 88, 880, 10, 32, 352,11,120,1200, 10, 5000, 10000, 2,45, 360, 8};
     char name[][30] = {"juice", "PIVO", "milk", "chocolate", "vodka", "brandy", "fish"};
     int count_product = 0;
-    FILE *f = fopen("F_my_file.txt", "wb");
+    FILE *f = fopen("F_my_file.txt", "w+b");
     for(int i = 0; i < 7; i++){
         char *beginName = name[i];
         copy(beginName, beginName+30,priseList.name_product);
@@ -1075,7 +1106,6 @@ void test1_tusk10(){
         fwrite(&priseList, sizeof(product), 1, f);
     }
     send sendList;
-    fclose(f);
     FILE *g = fopen("G_my_file.txt", "wb");
     int countSend[] = {30, 60,10,10,3};
     for(int i = 0; i < 5; i++){
@@ -1085,13 +1115,13 @@ void test1_tusk10(){
         fwrite(&sendList, sizeof(sendList), 1, g);
     }
     fclose(g);
-    f = fopen("F_my_file.txt", "rb");
     g = fopen("G_my_file.txt", "rb");
+    fseek(f, 0L, 0);
     sort_product(f,g);
     fclose(f);
     fclose(g);
     int res[1000];
-    f = fopen("res.txt", "rb");
+    f = fopen("F_my_file.txt", "rb");
     product got;
     int size = 0;
     char got_arr[3000][30];
@@ -1119,13 +1149,15 @@ void test1_tusk10(){
     if(flag){
         ASSERT_STRING_INT_ARR(expected_arr, 18, res, size);
     }
+    remove("F_my_file.txt");
+    remove("G_my_file.txt");
 }
 void test2_tusk10(){
     product priseList;
     int arr[] = {50, 3000, 60,300, 30000, 100, 88, 880, 10, 32, 352,11,120,1200, 10, 5000, 10000, 2,45, 360, 8};
     char name[][30] = {"juice", "PIVO", "milk", "chocolate", "vodka", "brandy", "fish"};
     int count_product = 0;
-    FILE *f = fopen("F_my_file.txt", "wb");
+    FILE *f = fopen("F_my_file.txt", "w+b");
     for(int i = 0; i < 7; i++){
         char *beginName = name[i];
         copy(beginName, beginName+30,priseList.name_product);
@@ -1138,7 +1170,7 @@ void test2_tusk10(){
         fwrite(&priseList, sizeof(product), 1, f);
     }
     send sendList;
-    fclose(f);
+
     FILE *g = fopen("G_my_file.txt", "wb");
     int countSend[] = {60, 100,10,11,10,1,8};
     for(int i = 0; i < 7; i++){
@@ -1148,13 +1180,13 @@ void test2_tusk10(){
         fwrite(&sendList, sizeof(sendList), 1, g);
     }
     fclose(g);
-    f = fopen("F_my_file.txt", "rb");
     g = fopen("G_my_file.txt", "rb");
+    fseek(f,0L,0);
     sort_product(f,g);
     fclose(f);
     fclose(g);
     int res[1000];
-    f = fopen("res.txt", "rb");
+    f = fopen("F_my_file.txt", "rb");
     product got;
     int size = 0;
     char got_arr[3000][30];
@@ -1182,6 +1214,8 @@ void test2_tusk10(){
     if(flag){
         ASSERT_STRING_INT_ARR(expected_arr, 3, res, size);
     }
+    remove("F_my_file.txt");
+    remove("G_my_file.txt");
 }
 void test_lab19(){
     test1_tusk1();
@@ -1195,6 +1229,7 @@ void test_lab19(){
     test1_tusk4();
     test2_tusk4();
     test3_tusk4();
+    test4_tusk4();
     test1_tusk5();
     test2_tusk5();
     test3_tusk5();
