@@ -557,7 +557,6 @@ void test2_tusk5(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("ggasefasfffff\nggasefasf\nekoveuv\nerwhcvuiev\negvwvsdv", res);
-    remove("res.txt");
     remove("my_file.txt");
 }
 void test3_tusk5(){
@@ -581,7 +580,6 @@ void test3_tusk5(){
     res[size-1]='\0';
     fclose(file);
     ASSERT_STRING("ggasefasff\nelmberr", res);
-    remove("res.txt");
     remove("my_file.txt");
 }
 
@@ -1007,6 +1005,7 @@ void test1_tusk9(){
     char expect[] = "Hector Martinez Petrovich Sharipov Genadi Antonovich Shane Owens Aleksandrovich Ben Floyd Pantileivich Bradley Morales Ivanovich";
     ASSERT_STRING(expect, res)
     ASSERT_STRING_INT_ARR(expected_val, 5, values_max, size)
+    remove("my_file.txt");
 }
 void test2_tusk9(){
     char name[][50] = {"Fokin Sashko Valentinovich", "Sharipov Genadi Antonovich", "James Brown Fedorovich", "Hector Martinez Petrovich", "Ben Floyd Pantileivich", "Shane Owens Aleksandrovich", "Bradley Morales Ivanovich", "Sitnikov Aleksey Pavlovich"};
@@ -1043,6 +1042,7 @@ void test2_tusk9(){
     char expect[] = "Hector Martinez Petrovich Sharipov Genadi Antonovich Shane Owens Aleksandrovich Fokin Sashko Valentinovich Ben Floyd Pantileivich";
     ASSERT_STRING(expect, res)
     ASSERT_STRING_INT_ARR(expected_val, 5, values_max, size)
+    remove("my_file.txt");
 }
 //tusk 10...............................................................................................................
 typedef struct product{
