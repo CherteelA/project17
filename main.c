@@ -1,5 +1,5 @@
-void test_lab19();
+void testLab20();
 int main() {
-    test_lab19();
+    testLab20();
     return 0;
 }
