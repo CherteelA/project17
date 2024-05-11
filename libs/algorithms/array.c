@@ -175,3 +175,11 @@ void deleteIf_ (int * const a , size_t * const n , int (* deletePredicate ) (int
     }
     *n = i_write;
 }
+
+//сумма элементов массива
+int sumOfValueArray(int *a, int size){
+    int sum = 0;
+    for(int i = 0; i < size; i++)
+        sum+=a[i];
+    return sum;
+}

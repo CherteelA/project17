@@ -2,6 +2,7 @@
 // Created by admin on 07.05.2024.
 //
 #include <stdio.h>
+#include "array.h"
 #include "../data_struct/matrix/matrix.h"
 #include "../data_struct/string/tusk/test_processing_string.h"
 #include "../data_struct/string/processing_string.h"
@@ -256,6 +257,135 @@ void tusk4_test2(){
     char char_arr_expected[][1000] = {"google.mail.com", "mail.com", "com", "yahoo.com", "intel.mail.com", "wiki.org", "org"};
     ASSERT_STRING_INT_ARR_CHAR_ARRAY(int_arr_expected, 7, array_count_got, size_array, 7, char_arr_expected, size_array, array_name_got)
 }
+//tusk 5................................................................................................................
+void count_subMatrix(matrix m){
+    matrix subM;
+    for(int i = 0; i < m.nRows; i++){
+        int nums[m.nCols];
+        for(int j = 0; j < m.nCols; j++){
+
+            if (m.values[i][j] == 0)
+                nums[j] = 0;
+            else {
+                if(j!=0)
+                    nums[j] = nums[j - 1] + 1;
+                else
+                    nums[j] = 1;
+            }
+        }
+    }
+}
+//tusk 6................................................................................................................
+//int size = strlen_(pattern);
+//int count_I = cound_symbl(pattern, 'I');
+//int count_D = cound_symbl(pattern, 'D');
+//int min_numb;
+//if(count_I > count_D)
+//min_numb
+
+//if (pattern[cur] == 'I') {
+//if (i > arr[cur] && bin_arr[i - 1] == 1) {
+//arr[cur+1] = i;
+//bin_arr[i - 1] = 0;
+//pattern_numb(pattern, cur + 1, arr, bin_arr);
+//}
+//}
+//if (pattern[cur] == 'D') {
+//int t = arr[cur - 1];
+//if (i < arr[cur] && bin_arr[i - 1] == 1) {
+//arr[cur+1] = i;
+//bin_arr[i - 1] = 0;
+//pattern_numb(pattern, cur + 1, arr, bin_arr);
+//}
+//}
+void end_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr,bool *flag_end){
+
+    for (int i = 1; i <= 9; i++) {
+        if(cur == strlen_(pattern)){
+            *flag_end = true;
+            return;
+        }
+        if (bin_arr[i - 1] == 1) {
+            arr[cur+1] = i;
+            bin_arr[i - 1] = 0;
+            if (pattern[cur] == 'I' && arr[cur] < arr[cur+1]) {
+                end_pattern_numb(pattern, cur + 1, arr, bin_arr,flag_end);
+                if(sumOfValueArray(bin_arr, 9) == 0){
+                    *flag_end = true;
+                    return;
+                }
+            }
+            else if (pattern[cur] == 'D' && arr[cur] > arr[cur+ 1]) {
+                end_pattern_numb(pattern, cur + 1, arr, bin_arr, flag_end);
+                if(sumOfValueArray(bin_arr, 9) == 0){
+                    *flag_end = true;
+                    return;
+                }
+            }
+            if(*flag_end){
+                return;
+            }
+            bin_arr[i - 1] = 1;
+
+        }
+    }
+
+}
+void start_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr, bool *flag_end) {
+    for (int i = 1; i < 10; i++) {
+        arr[cur] = i;
+        bin_arr[i - 1] = 0;
+        end_pattern_numb(pattern, cur, arr, bin_arr, flag_end);
+        if(*flag_end){
+            return;
+        }
+        bin_arr[i - 1] = 1;
+    }
+}
+
+
+void tusk6_test1(){
+    char *pattern = "IIIDIDDD";
+    int size = strlen_(pattern)+1;
+    int arr[9] = {0};
+    int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
+    bool flag = false;
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    int got_arr[size];
+    for(int i = 0; i < size; i++){
+        got_arr[i] = arr[i];
+    }
+    int expected[] = {1,2,3,5,4,9,8,7,6};
+    ASSERT_STRING_INT_ARR(expected, 9, got_arr,size);
+}
+void tusk6_test2(){
+    char *pattern = "DDD";
+    int size = strlen_(pattern)+1;
+    int arr[9] = {0};
+    int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
+    bool flag = false;
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    int got_arr[size];
+    for(int i = 0; i < size; i++){
+        got_arr[i] = arr[i];
+    }
+    int expected[] = {4,3,2,1};
+    ASSERT_STRING_INT_ARR(expected, 4, got_arr,size);
+}
+void tusk6_test3(){
+    char *pattern = "DDDI";
+    int size = strlen_(pattern)+1;
+    int arr[9] = {0};
+    int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
+    bool flag = false;
+    int got_arr[size];
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    for(int i = 0; i < size; i++){
+        got_arr[i] = arr[i];
+    }
+    int expected[] = {4,3,2,1,5};
+    ASSERT_STRING_INT_ARR(expected, 5, got_arr,size);
+}
 
 void testLab20(){
     tusk1_test1();
@@ -266,4 +396,7 @@ void testLab20(){
     tusk2_test3();
     tusk4_test1();
     tusk4_test2();
+    tusk6_test1();
+    tusk6_test2();
+    tusk6_test3();
 }

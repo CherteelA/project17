@@ -806,3 +806,14 @@ bool point_in_string(char *string){
     }
     return false;
 }
+
+//считает количество определённых символов
+int cound_symbl(char *str, char symbl){
+    char *begin = str;
+    int count = 0;
+    while (*begin != '\0'){
+        if(*begin == symbl)
+            count++;
+    }
+    return count;
+}

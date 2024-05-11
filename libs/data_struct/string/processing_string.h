@@ -133,4 +133,7 @@ void largestWord(char *s, char *big);
 
 //есть ли точка в строке
 bool point_in_string(char *string);
+
+//считает количество определённых символов
+int cound_symbl(char *str, char symbl);
 #endif //PROJECT17_PROCESSING_STRING_H
