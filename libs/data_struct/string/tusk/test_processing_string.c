@@ -43,8 +43,10 @@ void assertStringIntArr(int *expected, int size_expected, int *got,int size_got,
     bool flag = size_expected == size_got;
     if(flag) {
         for (int i = 0; i < size_got; i++) {
-            if (expected[i] != got[i])
+            if (expected[i] != got[i]) {
                 flag = false;
+                break;
+            }
         }
     }
     if (!flag) {
@@ -54,6 +56,55 @@ void assertStringIntArr(int *expected, int size_expected, int *got,int size_got,
         printInt(expected,size_expected);
         fprintf(stderr,"got: ");
         printInt(got, size_got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
+void print_char_array(int size, char array[size][1000]){
+    for(int i = 0; i < size; i++){
+        char *begin = array[i];
+        while(*begin!='\0'){
+            fprintf(stderr,"%c", *begin);
+            begin++;
+        }
+        printf(" ");
+    }
+}
+void assertStringIntArrAndStrArr(int *expectedInt, int size_expectedInt, int *gotInt,int size_gotInt, int size_charArr_expected, char charArr_expected[size_charArr_expected][1000],int size_charArr_got, char charArr_got[size_charArr_got][1000],
+                                 char const *fileName, char const *funcName,
+                                 int line) {
+    bool flag = size_expectedInt == size_gotInt;
+    if(flag) {
+        for (int i = 0; i < size_gotInt; i++) {
+            if (expectedInt[i] != gotInt[i]) {
+                flag = false;
+                break;
+            }
+
+        }
+    }if(flag){
+        flag = size_charArr_expected == size_charArr_got;
+    }
+    if(flag){
+        for(int i = 0; i < size_charArr_expected; i++){
+            if(!(strcmp_(charArr_expected[i], charArr_got[i]))){
+                flag = false;
+                break;
+            }
+        }
+    }
+    if (!flag) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr,"expected: ");
+        printInt(expectedInt,size_expectedInt);
+        printf("\n");
+        fprintf(stderr,"got: ");
+        printInt(gotInt, size_gotInt);
+        printf("\n");
+        print_char_array(size_charArr_expected,charArr_expected);
+        printf("\n");
+        print_char_array(size_charArr_got,charArr_got);
+
     } else
         fprintf(stderr, "%s - OK\n", funcName);
 }

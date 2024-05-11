@@ -795,3 +795,14 @@ void largestWord(char *s, char *big){
     }
     _bag.size = 0;
 }
+
+//есть ли точка в строке
+bool point_in_string(char *string){
+    char *begin = string;
+    while (*begin!='\0'){
+        if(*begin == '.')
+            return true;
+        begin++;
+    }
+    return false;
+}
