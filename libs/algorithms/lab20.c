@@ -6,6 +6,7 @@
 #include "../data_struct/matrix/matrix.h"
 #include "../data_struct/string/tusk/test_processing_string.h"
 #include "../data_struct/string/processing_string.h"
+#define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__);
 #define ASSERT_STRING_INT_ARR(expected, size_expected, got, size_got) assertStringIntArr(expected, size_expected, got, size_got, __FILE__, __FUNCTION__, __LINE__);
 #define ASSERT_STRING_INT_ARR_CHAR_ARRAY(expectedInt, size_expectedInt, gotInt, size_gotInt, size_expecded_charArray, charArray_expected, size_got_charArray, charArray_got) assertStringIntArrAndStrArr(expectedInt, size_expectedInt, gotInt, size_gotInt, size_expecded_charArray, charArray_expected, size_got_charArray, charArray_got, __FILE__, __FUNCTION__, __LINE__);
 
@@ -481,7 +482,7 @@ void BFS_list(list *tree[1000], int size, int *arr_res, int  *res_size){
 }
 void tusk7_test1(){
     int arr[] = {3,2,1,6,0,5};
-    list *main_list = malloc(sizeof(list));
+    list *main_list = creat_list(0);
     trees(arr, 0, 6,main_list, 6);
     list *arrRes[1000] = {main_list};
     int arr_res[1000];
@@ -493,7 +494,7 @@ void tusk7_test1(){
 }
 void tusk7_test2(){
     int arr[] = {3,2,1};
-    list *main_list = malloc(sizeof(list));
+    list *main_list = creat_list(0);
     trees(arr, 0, 3,main_list, 3);
     list *arrRes[1000] = {main_list};
     int arr_res[1000];
@@ -505,7 +506,7 @@ void tusk7_test2(){
 }
 void tusk7_test3(){
     int arr[] = {3,0,2,1};
-    list *main_list = malloc(sizeof(list));
+    list *main_list = creat_list(0);
     trees(arr, 0, 4,main_list, 4);
     list *arrRes[1000] = {main_list};
     int arr_res[1000];
@@ -516,6 +517,40 @@ void tusk7_test3(){
     ASSERT_STRING_INT_ARR(expected, 4, arr_res, arr_size)
 }
 
+//tusk 8................................................................................................................
+
+void change_letters(int *arr, char *s){
+    int size_s = strlen_(s);
+    char temp_string[size_s+1];
+    for(int i = 0; i < size_s; i++){
+        *(temp_string+arr[i]) = *(s+i);
+    }
+    for (int i = 0; i < size_s; i++) {
+        *(s+i )= *(temp_string+i);
+    }
+}
+
+void tusk8_test1(){
+    int arr[] = {0,1,2};
+    char s[] = "abc";
+    change_letters(arr,s);
+    char expected[] = "abc";
+    ASSERT_STRING(expected, s)
+}
+void tusk8_test2(){
+    int arr[] = {0,3,2,1};
+    char s[] = "abap";
+    change_letters(arr,s);
+    char expected[] = "apab";
+    ASSERT_STRING(expected, s)
+}
+void tusk8_test3(){
+    int arr[] = {5,4,3,2,1,0};
+    char s[] = "zxcvbn";
+    change_letters(arr,s);
+    char expected[] = "nbvcxz";
+    ASSERT_STRING(expected, s)
+}
 void testLab20(){
     tusk1_test1();
     tusk1_test2();
@@ -531,4 +566,7 @@ void testLab20(){
     tusk7_test1();
     tusk7_test2();
     tusk7_test3();
+    tusk8_test1();
+    tusk8_test2();
+    tusk8_test3();
 }
