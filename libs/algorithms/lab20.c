@@ -9,6 +9,7 @@
 #define ASSERT_STRING(expected, got) assertString(expected, got, __FILE__, __FUNCTION__, __LINE__);
 #define ASSERT_STRING_INT_ARR(expected, size_expected, got, size_got) assertStringIntArr(expected, size_expected, got, size_got, __FILE__, __FUNCTION__, __LINE__);
 #define ASSERT_STRING_INT_ARR_CHAR_ARRAY(expectedInt, size_expectedInt, gotInt, size_gotInt, size_expecded_charArray, charArray_expected, size_got_charArray, charArray_got) assertStringIntArrAndStrArr(expectedInt, size_expectedInt, gotInt, size_gotInt, size_expecded_charArray, charArray_expected, size_got_charArray, charArray_got, __FILE__, __FUNCTION__, __LINE__);
+#define ASSERT_INT(expected, got) assertInt(expected, got, __FILE__, __FUNCTION__, __LINE__);
 
 //tusk 1................................................................................................................
 typedef struct matrix_point{
@@ -160,6 +161,77 @@ void tusk2_test3(){
     freeMemMatrix(&m);
 }
 //tusk 3................................................................................................................
+void median_filter(matrix *m, int filter) {
+    int temp[filter * filter];
+    int half = filter / 2;
+
+    for (int i = half; i < m->nRows - half; i++) {
+        for (int j = half; j < m->nCols - half; j++) {
+            int k = 0;
+            for (int x = i - half; x <= i + half; x++) {
+                for (int y = j - half; y <= j + half; y++) {
+                    temp[k++] = m->values[x][y];
+                }
+            }
+            for (int p = 0; p < filter * filter - 1; p++) {
+                for (int q = 0; q < filter * filter - p - 1; q++) {
+                    if (temp[q] > temp[q+1]) {
+                        int a = temp[q];
+                        temp[q] = temp[q+1];
+                        temp[q+1] = a;
+                    }
+                }
+            }
+            m->values[i][j] = temp[filter * filter / 2];
+        }
+    }
+}
+
+void tusk3_test1(){
+    int arr[] = {10,20,30,25,35,45,15,25,35};
+    matrix m = createMatrixFromArray(arr, 3,3);
+    median_filter(&m ,3);
+    int res_arr[9];
+    int size = 0;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            res_arr[size] = m.values[i][j];
+            size++;
+        }
+    }
+    int expected[] = {10,20,30,25,25,45,15,25,35};
+    ASSERT_STRING_INT_ARR(expected, 9, res_arr, size)
+}
+void tusk3_test2(){
+    int arr[] = {10,20,30,25,35,45,15,25,35, 20,20,20,20,35,40,5,10,15,35,25,20,30,50,25,10};
+    matrix m = createMatrixFromArray(arr, 5,5);
+    median_filter(&m ,5);
+    int res_arr[25];
+    int size = 0;
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 5; j++){
+            res_arr[size] = m.values[i][j];
+            size++;
+        }
+    }
+    int expected[] = {10, 20, 30, 25, 35, 45, 15, 25, 35, 20, 20, 20, 25, 35, 40, 5, 10, 15, 35, 25, 20, 30, 50, 25, 10};
+    ASSERT_STRING_INT_ARR(expected, 25, res_arr, size)
+}
+void tusk3_test3(){
+    int arr[] = {10,20,30,25,25,45,15,25,35};
+    matrix m = createMatrixFromArray(arr, 3,3);
+    median_filter(&m ,3);
+    int res_arr[9];
+    int size = 0;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            res_arr[size] = m.values[i][j];
+            size++;
+        }
+    }
+    int expected[] = {10,20,30,25,25,45,15,25,35};
+    ASSERT_STRING_INT_ARR(expected, 9, res_arr, size)
+}
 //tusk 4................................................................................................................
 typedef struct domain_string_value{
     char name[1000];
@@ -259,22 +331,50 @@ void tusk4_test2(){
     ASSERT_STRING_INT_ARR_CHAR_ARRAY(int_arr_expected, 7, array_count_got, size_array, 7, char_arr_expected, size_array, array_name_got)
 }
 //tusk 5................................................................................................................
-void count_subMatrix(matrix m){
-    matrix subM;
-    for(int i = 0; i < m.nRows; i++){
-        int nums[m.nCols];
-        for(int j = 0; j < m.nCols; j++){
-
-            if (m.values[i][j] == 0)
+int countSubmatrices(matrix m) {
+    int count = 0;
+    int nums[m.nCols];
+    for(int i = 0; i < m.nCols; i++){
+        nums[i] = 0;
+    }
+    for (int i = 0; i < m.nRows; i++) {
+        for (int j = 0; j < m.nCols; j++) {
+            if (m.values[i][j] == 0) {
                 nums[j] = 0;
-            else {
-                if(j!=0)
-                    nums[j] = nums[j - 1] + 1;
-                else
-                    nums[j] = 1;
+            } else {
+                nums[j] = nums[j]+1;
+            }
+        }
+        for (int j = 0; j < m.nCols; j++) {
+            int minVal = nums[j];
+            for (int k = j; k < m.nCols; k++) {
+                minVal = minVal < nums[k] ? minVal : nums[k];
+                count += minVal;
             }
         }
     }
+    return count;
+}
+void tusk5_test1(){
+    int arr[] = {1,0,1,1,1,0,1,1,0};
+    matrix m = createMatrixFromArray(arr,3,3);
+    int res = countSubmatrices(m);
+    int expected = 13;
+    ASSERT_INT(expected, res)
+}
+void tusk5_test2(){
+    int arr[] = {1,0,0,1,0,1,0,0,1};
+    matrix m = createMatrixFromArray(arr,3,3);
+    int res = countSubmatrices(m);
+    int expected = 6;
+    ASSERT_INT(expected, res)
+}
+void tusk5_test3(){
+    int arr[] = {1,0,0,0,0,0,0,0,1};
+    matrix m = createMatrixFromArray(arr,3,3);
+    int res = countSubmatrices(m);
+    int expected = 2;
+    ASSERT_INT(expected, res)
 }
 //tusk 6................................................................................................................
 //int size = strlen_(pattern);
@@ -617,7 +717,7 @@ void Auto_completion(int N, int Q, char dictionary[N][1000]){
     int res[Q];
     for(int i = 0; i < Q; i++){
         int Ki;
-        char Pi[200000];
+        char Pi[1000];
         scanf("%d %s", &Ki, Pi);
         int count = 0;
         for(int k = 0; k < N; k++){
@@ -650,24 +750,30 @@ void tusk11_test1(){
 
 
 void testLab20(){
-//    tusk1_test1();
-//    tusk1_test2();
-//    tusk1_test3();
-//    tusk2_test1();
-//    tusk2_test2();
-//    tusk2_test3();
-//    tusk4_test1();
-//    tusk4_test2();
-//    tusk6_test1();
-//    tusk6_test2();
-//    tusk6_test3();
-//    tusk7_test1();
-//    tusk7_test2();
-//    tusk7_test3();
-//    tusk8_test1();
-//    tusk8_test2();
-//    tusk8_test3();
+    tusk1_test1();
+    tusk1_test2();
+    tusk1_test3();
+    tusk2_test1();
+    tusk2_test2();
+    tusk2_test3();
+    tusk3_test1();
+    tusk3_test2();
+    tusk3_test3();
+    tusk4_test1();
+    tusk4_test2();
+    tusk5_test1();
+    tusk5_test2();
+    tusk5_test3();
+    tusk6_test1();
+    tusk6_test2();
+    tusk6_test3();
+    tusk7_test1();
+    tusk7_test2();
+    tusk7_test3();
+    tusk8_test1();
+    tusk8_test2();
+    tusk8_test3();
    // tusk9_test1();
-    tusk11_test1();
+   // tusk11_test1();
 
 }

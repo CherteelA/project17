@@ -14,4 +14,8 @@ void assertStringIntArr(int *expected, int size_expected, int *got,int size_got,
 void assertStringIntArrAndStrArr(int *expectedInt, int size_expectedInt, int *gotInt,int size_gotInt, int size_charArr_expected, char charArr_expected[size_charArr_expected][1000],int size_charArr_got, char charArr_got[size_charArr_got][1000],
                                  char const *fileName, char const *funcName,
                                  int line);
+
+void assertInt(int expected, int got,
+               char const *fileName, char const *funcName,
+               int line);
 #endif //PROJECT17_TEST_PROCESSING_STRING_H

@@ -108,6 +108,17 @@ void assertStringIntArrAndStrArr(int *expectedInt, int size_expectedInt, int *go
     } else
         fprintf(stderr, "%s - OK\n", funcName);
 }
+void assertInt(int expected, int got,
+                  char const *fileName, char const *funcName,
+                  int line) {
+    if (expected!=got) {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%d\"\n", expected);
+        fprintf(stderr, "Got: \"%d\"\n\n", got);
+    } else
+        fprintf(stderr, "%s - OK\n", funcName);
+}
 //tusk 1.........................................................................................
 void test_removeNonLetters_first(){
     char words[] = "hello, how are you";
