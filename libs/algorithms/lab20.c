@@ -600,28 +600,74 @@ void tusk9_test1(){
         fprintf(stderr, "not a number entered");
     }
 }
+//tusk 11...............................................................................................................
 
+bool prefix(char *str, char *pr){
+    while (*pr!='\0'){
+        if(*pr!=*str)
+            return false;
+        pr++;
+        str++;
+    }
+    return true;
+}
+
+
+void Auto_completion(int N, int Q, char dictionary[N][1000]){
+    int res[Q];
+    for(int i = 0; i < Q; i++){
+        int Ki;
+        char Pi[200000];
+        scanf("%d %s", &Ki, Pi);
+        int count = 0;
+        for(int k = 0; k < N; k++){
+            if(prefix(dictionary[k], Pi)){
+                count++;
+            }
+            if(count==Ki){
+                res[i]=k+1;
+                break;
+            }
+        }
+        if(count!=Ki)
+            res[i]=-1;
+    }
+    for(int i = 0; i < Q; i++)
+        printf("%d\n", res[i]);
+}
+
+void tusk11_test1(){
+    int N, Q;
+    scanf("%d %d", &N, &Q);
+    char dictionary[N][1000];
+    for(int i = 0; i < N; i++){
+        scanf("%s", dictionary[i]);
+    }
+    Auto_completion(N, Q,dictionary);
+
+}
 
 
 
 void testLab20(){
-    tusk1_test1();
-    tusk1_test2();
-    tusk1_test3();
-    tusk2_test1();
-    tusk2_test2();
-    tusk2_test3();
-    tusk4_test1();
-    tusk4_test2();
-    tusk6_test1();
-    tusk6_test2();
-    tusk6_test3();
-    tusk7_test1();
-    tusk7_test2();
-    tusk7_test3();
-    tusk8_test1();
-    tusk8_test2();
-    tusk8_test3();
+//    tusk1_test1();
+//    tusk1_test2();
+//    tusk1_test3();
+//    tusk2_test1();
+//    tusk2_test2();
+//    tusk2_test3();
+//    tusk4_test1();
+//    tusk4_test2();
+//    tusk6_test1();
+//    tusk6_test2();
+//    tusk6_test3();
+//    tusk7_test1();
+//    tusk7_test2();
+//    tusk7_test3();
+//    tusk8_test1();
+//    tusk8_test2();
+//    tusk8_test3();
    // tusk9_test1();
+    tusk11_test1();
 
 }
