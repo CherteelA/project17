@@ -601,23 +601,27 @@ void tusk9_test1(){
     }
 }
 
+
+
+
 void testLab20(){
-//    tusk1_test1();
-//    tusk1_test2();
-//    tusk1_test3();
-//    tusk2_test1();
-//    tusk2_test2();
-//    tusk2_test3();
-//    tusk4_test1();
-//    tusk4_test2();
-//    tusk6_test1();
-//    tusk6_test2();
-//    tusk6_test3();
-//    tusk7_test1();
-//    tusk7_test2();
-//    tusk7_test3();
-//    tusk8_test1();
-//    tusk8_test2();
-//    tusk8_test3();
-    tusk9_test1();
+    tusk1_test1();
+    tusk1_test2();
+    tusk1_test3();
+    tusk2_test1();
+    tusk2_test2();
+    tusk2_test3();
+    tusk4_test1();
+    tusk4_test2();
+    tusk6_test1();
+    tusk6_test2();
+    tusk6_test3();
+    tusk7_test1();
+    tusk7_test2();
+    tusk7_test3();
+    tusk8_test1();
+    tusk8_test2();
+    tusk8_test3();
+   // tusk9_test1();
+
 }
