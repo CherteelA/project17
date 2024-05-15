@@ -241,7 +241,6 @@ typedef struct array_domain_count{
     int size;
     domain_string_value array[1000];
 }array_domain_count;
-
 void add_in_array_domain_count(array_domain_count *bag, domain_string_value domain){
     bool flag_new = true;
     if(bag->size!=0) {
@@ -259,7 +258,6 @@ void add_in_array_domain_count(array_domain_count *bag, domain_string_value doma
         bag->size++;
     }
 }
-
 void count_search(char *string, char *res, int *size){
     char *begin = string;
     while (*begin != '\0'){
