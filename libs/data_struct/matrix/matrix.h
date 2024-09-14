@@ -71,4 +71,7 @@ matrix createMatrixFromArray(const int *a, size_t nRows, size_t nCols);
 matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 //произведение матрицы m1 на матрицу m2
 matrix matrix_multiplication(matrix m1, matrix m2);
+
+//заполнение нулями
+void EnterZero(matrix *m);
 #endif //LABA_MATRIX_H

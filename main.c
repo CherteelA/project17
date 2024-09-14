@@ -1,54 +1,79 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include <signal.h>
-#include "libs/data_struct/string/processing_string.h"
-void testLab20();
-char *find_suffix(char *s);
-//tusk 10...............................................................................................................
-volatile sig_atomic_t print_next = 0;
-void handle_signal(int sig){
-    if(sig==SIGINT){
-        print_next = 1;
+#include "libs/data_struct/stack/stack.h"
+
+
+int inArray(char sym){
+    char s[] = {')','=','>','+','*','-',  '('};
+    for(int i = 0; i < 7; i++){
+        if(s[i] == sym) return i;
     }
-}
-int main(int argc, char *argv[]) {
-    char lines[] = "gggggggg aaaaaaaaa\npppppp\nkkkkkkkk llllllll pppppppp\nprogram\nend\nnow\nfffff\nnnnnnnn\nmmmmmmmm\nwait\n1\nsec";
-    char *suffix = find_suffix(argv[1]);
-    if(find_suffix(argv[1]) == NULL || !strcmp_(suffix, ".txt")){
-        fprintf(stderr, "add to file suffix: .txt");
-        exit(1);
-    }
-    char *begin = argv[2];
-    while (*begin!='\0'){
-        if(*begin < '0' || *begin > '9'){
-            fprintf(stderr, "second parameter must be an integer");
-            exit(1);
-        }
-        begin++;
-    }
-    FILE *f = fopen(argv[1], "w+");
-    if(f==NULL) {
-        fprintf(stderr, "Fail");
-        exit(1);
-    }
-    fputs(lines, f);
-    fseek(f, 0L, 0);
-    int count_line = 0;
-    int N = atoi(argv[2]);
-    while(fgets(lines, 1000, f) > 0){
-        signal(SIGINT, handle_signal);
-        while (!print_next){}
-        if(print_next){
-            printf("%s", lines);
-            count_line++;
-        }
-        if(count_line == N) {
-            print_next = 0;
-            count_line = 0;
-        }
-    }
-    printf("\n");
-    testLab20();
-    return 0;
+    return -1;
 }
 
+void writePolskaiaZapis(char *str, char *symbol){
+    stackNode *next = NULL;
+        for(int i = 0; i < strlen(str); i++){
+        int ord = inArray(str[i]);
+        if(ord != -1){
+            int ordPref;
+            if(next)
+                ordPref = inArray(*next->data);
+            if(next == NULL || ordPref < ord || ordPref==6)
+                next = push_(next, &str[i], sizeof(str[i]));
+            else{
+                if(str[i] == ')'){
+                    while (1){
+                        *symbol = *next->data;
+                        symbol++;
+                        next = pop_(next);
+
+                        if(*next->data == '('){
+                            next = pop_(next);
+                            break;
+                        }
+                    }
+                }
+                else{
+                    while (1){
+                        *symbol = *next->data;
+                        symbol++;
+                        next = pop_(next);
+                        if(next == NULL){
+                            next = push_(next, &str[i], sizeof(str[i]));
+                            break;
+                        }
+                        int pref = inArray(*next->data);
+                        if(pref < ord || pref == 6){
+                            next = push_(next, &str[i], sizeof(str[i]));
+                            break;
+                        }
+                    }
+                }
+            }
+        } else{
+            *symbol = str[i];
+            symbol++;
+        }
+    }
+    symbol--;
+    while (next){
+        *symbol = *next->data;
+        symbol++;
+        next = pop_(next);
+    }
+    *symbol = '\0';
+    freeStack(next);
+}
+
+
+
+int main(){
+    char buf[100];
+    while (fgets(buf, 99, stdin) != NULL){
+        if(buf[0] == 'q') break;
+        char * str = &buf[0];
+        char ans[strlen(str)+1];
+        writePolskaiaZapis(str, &ans[0]);
+        printf("%s", ans);
+    }
+    return 1;
+}

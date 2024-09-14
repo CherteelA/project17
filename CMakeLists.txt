@@ -21,4 +21,6 @@ add_executable(Project17 main.c
         libs/data_struct/string/processing_string.c
         libs/algorithms/lab19.c
         libs/algorithms/lab20.c
+        libs/data_struct/stack/stack.c
+        libs/data_struct/stack/stack.h
 )

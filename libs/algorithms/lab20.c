@@ -242,16 +242,16 @@ typedef struct array_domain_count{
     domain_string_value array[1000];
 }array_domain_count;
 void add_in_array_domain_count(array_domain_count *bag, domain_string_value domain){
-    bool flag_new = true;
+    bool flag_isNew = true;
     if(bag->size!=0) {
         for (int i = 0; i < bag->size; i++) {
             if (strcmp_(bag->array[i].name, domain.name)) {
                 bag->array[i].data += domain.data;
-                flag_new = false;
+                flag_isNew = false;
             }
         }
     }
-    if(flag_new){
+    if(flag_isNew){
         char *begin = domain.name;
         *copy(begin, begin + strlen_(begin), bag->array[bag->size].name) = '\0';
         bag->array[bag->size].data=domain.data;
@@ -272,8 +272,8 @@ void count_search(char *string, char *res, int *size){
         }
     }
 }
-//main
 
+//main
 void count_domain(char (*arr)[100], int size, array_domain_count *bag_domain){
     bag_domain->size=0;
     for(int i = 0; i < size; i++){
@@ -375,53 +375,31 @@ void tusk5_test3(){
     ASSERT_INT(expected, res)
 }
 //tusk 6................................................................................................................
-//int size = strlen_(pattern);
-//int count_I = cound_symbl(pattern, 'I');
-//int count_D = cound_symbl(pattern, 'D');
-//int min_numb;
-//if(count_I > count_D)
-//min_numb
-
-//if (pattern[cur] == 'I') {
-//if (i > arr[cur] && bin_arr[i - 1] == 1) {
-//arr[cur+1] = i;
-//bin_arr[i - 1] = 0;
-//pattern_numb(pattern, cur + 1, arr, bin_arr);
-//}
-//}
-//if (pattern[cur] == 'D') {
-//int t = arr[cur - 1];
-//if (i < arr[cur] && bin_arr[i - 1] == 1) {
-//arr[cur+1] = i;
-//bin_arr[i - 1] = 0;
-//pattern_numb(pattern, cur + 1, arr, bin_arr);
-//}
-//}
-void end_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr,bool *flag_end){
+void end_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr,bool *flag_is_end){
 
     for (int i = 1; i <= 9; i++) {
         if(cur == strlen_(pattern)){
-            *flag_end = true;
+            *flag_is_end = true;
             return;
         }
         if (bin_arr[i - 1] == 1) {
             arr[cur+1] = i;
             bin_arr[i - 1] = 0;
             if (pattern[cur] == 'I' && arr[cur] < arr[cur+1]) {
-                end_pattern_numb(pattern, cur + 1, arr, bin_arr,flag_end);
+                end_pattern_numb(pattern, cur + 1, arr, bin_arr,flag_is_end);
                 if(sumOfValueArray(bin_arr, 9) == 0){
-                    *flag_end = true;
+                    *flag_is_end = true;
                     return;
                 }
             }
             else if (pattern[cur] == 'D' && arr[cur] > arr[cur+ 1]) {
-                end_pattern_numb(pattern, cur + 1, arr, bin_arr, flag_end);
+                end_pattern_numb(pattern, cur + 1, arr, bin_arr, flag_is_end);
                 if(sumOfValueArray(bin_arr, 9) == 0){
-                    *flag_end = true;
+                    *flag_is_end = true;
                     return;
                 }
             }
-            if(*flag_end){
+            if(*flag_is_end){
                 return;
             }
             bin_arr[i - 1] = 1;
@@ -430,12 +408,12 @@ void end_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr,bool 
     }
 
 }
-void start_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr, bool *flag_end) {
+void start_pattern_numb(const char *pattern, int cur, int *arr, int *bin_arr, bool *flag_is_end) {
     for (int i = 1; i < 10; i++) {
         arr[cur] = i;
         bin_arr[i - 1] = 0;
-        end_pattern_numb(pattern, cur, arr, bin_arr, flag_end);
-        if(*flag_end){
+        end_pattern_numb(pattern, cur, arr, bin_arr, flag_is_end);
+        if(*flag_is_end){
             return;
         }
         bin_arr[i - 1] = 1;
@@ -448,8 +426,8 @@ void tusk6_test1(){
     int size = strlen_(pattern)+1;
     int arr[9] = {0};
     int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
-    bool flag = false;
-    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    bool flag_is_end = false;
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag_is_end);
     int got_arr[size];
     for(int i = 0; i < size; i++){
         got_arr[i] = arr[i];
@@ -462,8 +440,8 @@ void tusk6_test2(){
     int size = strlen_(pattern)+1;
     int arr[9] = {0};
     int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
-    bool flag = false;
-    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    bool flag_is_end = false;
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag_is_end);
     int got_arr[size];
     for(int i = 0; i < size; i++){
         got_arr[i] = arr[i];
@@ -476,9 +454,9 @@ void tusk6_test3(){
     int size = strlen_(pattern)+1;
     int arr[9] = {0};
     int bin_arr[9] = {1,1,1,1,1,1,1,1,1};
-    bool flag = false;
+    bool flag_is_end = false;
     int got_arr[size];
-    start_pattern_numb(pattern, 0, arr,bin_arr, &flag);
+    start_pattern_numb(pattern, 0, arr,bin_arr, &flag_is_end);
     for(int i = 0; i < size; i++){
         got_arr[i] = arr[i];
     }
@@ -499,10 +477,10 @@ list *creat_list(int data){
     node->neighbour=0;
     return node;
 }
-list *push_list(int data, int flag, list *node){
+list *push_list(int data, int flag_pick_side, list *node){
     node->data = data;
     list *temp = creat_list(0);
-    if(flag == 0){
+    if(flag_pick_side == 0){
         node->left = temp;
         if(node->neighbour == 0){
             node->neighbour = 1;

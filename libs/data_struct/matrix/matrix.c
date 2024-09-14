@@ -291,3 +291,11 @@ matrix matrix_multiplication(matrix m1, matrix m2){
     }
     return result;
 }
+//заполнение матрицы нулями
+void EnterZero(matrix *m){
+    for(int i = 0; i < m->nRows; i++){
+        for(int j = 0; j < m->nCols; j++){
+            m->values[i][j] = 0;
+        }
+    }
+}
