@@ -1,6 +1,6 @@
 #include "stack.h"
 
-stackNode * push_(stackNode *n, void *data, int size){
+stackNode * push_(stackNode *n, char *data, int size){
     stackNode *newStackNode = (stackNode*)malloc(sizeof(stackNode));
     newStackNode->data = malloc(size);
     memcpy(newStackNode->data, data, size);
