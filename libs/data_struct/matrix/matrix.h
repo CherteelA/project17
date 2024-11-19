@@ -71,7 +71,12 @@ matrix createMatrixFromArray(const int *a, size_t nRows, size_t nCols);
 matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols);
 //произведение матрицы m1 на матрицу m2
 matrix matrix_multiplication(matrix m1, matrix m2);
-
 //заполнение нулями
 void EnterZero(matrix *m);
+//включение, а в b
+bool AinB(matrix a, matrix b, int *count);
+//пересечение записывается в а
+void intersection(matrix *a, matrix b, int *c);
+//A без B
+void difference(matrix a, matrix b, matrix *ans);
 #endif //LABA_MATRIX_H

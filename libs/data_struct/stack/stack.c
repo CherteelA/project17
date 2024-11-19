@@ -1,5 +1,12 @@
 #include "stack.h"
 
+stackNode *init_stack(){
+    stackNode *node;
+    node = malloc(sizeof(stackNode));
+    node->next=NULL;
+    return node;
+}
+
 stackNode * push_(stackNode *n, char *data, int size){
     stackNode *newStackNode = (stackNode*)malloc(sizeof(stackNode));
     newStackNode->data = malloc(size);

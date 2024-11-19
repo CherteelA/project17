@@ -13,6 +13,7 @@ typedef struct stackNode{
     struct stackNode *next;
 }stackNode;
 
+stackNode * init_stack();
 stackNode * push_(stackNode *n, char *data, int size);
 stackNode * pop_(stackNode *n);
 void freeStack(stackNode *n);

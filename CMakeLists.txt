@@ -23,4 +23,10 @@ add_executable(Project17 main.c
         libs/algorithms/lab20.c
         libs/data_struct/stack/stack.c
         libs/data_struct/stack/stack.h
+        libs/algorithms/PolskaiaZapis.c
+        libs/algorithms/polscaiaZapis.h
+        libs/algorithms/sort.h
+        libs/algorithms/sort.c
+        libs/algorithms/search.c
+        libs/algorithms/search.h
 )

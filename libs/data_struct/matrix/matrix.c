@@ -299,3 +299,43 @@ void EnterZero(matrix *m){
         }
     }
 }
+
+bool AinB(matrix a, matrix b, int *count){
+    if(b.nRows < a.nRows || b.nCols < a.nCols)
+        return false;
+    for(int i = 0; i < a.nRows;i++){
+        for(int j = 0; j < a.nCols;j++){
+            (*count)++;
+            if(a.values[i][j] != b.values[i][j] && a.values[i][j] == 1)
+                return false;
+        }
+    }
+    return true;
+}
+
+void intersection(matrix *a, matrix b, int *c) {
+    (*c)++;
+    if (a->nRows != b.nRows || a->nCols != b.nCols) {
+        printf("Fail intersection");
+        exit(-1);
+    }
+
+    for (int i = 0; i < b.nRows; i++) {
+        for (int j = 0; j < b.nCols; j++) {
+            (*c)++;
+            if(b.values[i][j]){
+                a->values[i][j] = 1;
+            }
+        }
+    }
+}
+
+void difference(matrix a, matrix b, matrix *ans){
+    for(int i = 0; i < a.nRows; i++){
+        for(int j = 0; j < a.nCols; j++){
+            ans->values[i][j] = 0;
+            if(a.values[i][j] == 1 && b.values[i][j] == 0)
+                ans->values[i][j] = 1;
+        }
+    }
+}
